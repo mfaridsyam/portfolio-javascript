@@ -1,0 +1,859 @@
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+    }
+    
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+        e.preventDefault();
+        return false;
+    }
+    
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+        e.preventDefault();
+        return false;
+    }
+    
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+        e.preventDefault();
+        return false;
+    }
+    
+    if (e.ctrlKey && e.keyCode === 85) {
+        e.preventDefault();
+        return false;
+    }
+    
+    if (e.ctrlKey && e.keyCode === 83) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+emailjs.init("UrpG9fqigxq0B2m7k");
+
+let showAllProjects = false;
+let projectsAnimated = false;
+let portfolioObserved = false;
+
+window.addEventListener('DOMContentLoaded', () => {
+    showLoadingScreen();
+});
+
+function showLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const typedUrl = document.getElementById('typedUrl');
+    const mainContent = document.getElementById('portfolioPage');
+    const nav = document.querySelector('nav');
+    
+    loadingScreen.style.display = 'flex';
+    mainContent.style.display = 'none';
+    nav.style.display = 'none';
+    
+    const urlText = 'm-farid-syam.web.app';
+    let index = 0;
+    
+    setTimeout(() => {
+        const typingInterval = setInterval(() => {
+            if (index < urlText.length) {
+                typedUrl.textContent += urlText.charAt(index);
+                index++;
+            } else {
+                clearInterval(typingInterval);
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        mainContent.style.display = 'block';
+                        nav.style.display = 'flex';
+                        initializeAnimations();
+                        handleMusicPlayerVisibility();
+                    }, 500);
+                }, 800);
+            }
+        }, 100);
+    }, 1500);
+}
+
+function initializeAnimations() {
+    const heroContent = document.querySelector('.hero-content');
+    const heroImage = document.querySelector('.hero-image');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    
+    setTimeout(() => {
+        heroContent.classList.add('animate-in-left');
+    }, 200);
+    
+    setTimeout(() => {
+        heroImage.classList.add('animate-in-right');
+    }, 400);
+    
+    setTimeout(() => {
+        scrollIndicator.classList.add('animate-in-bottom');
+    }, 600);
+    
+    loadComments();
+    
+    const sections = document.querySelectorAll('section:not(#home)');
+    sections.forEach(section => {
+        section.classList.add('animate-section');
+        observer.observe(section);
+    });
+    
+    handleMobileCenterHover();
+}
+
+const audio = document.getElementById("audioPlayer");
+const musicTitleSimple = document.getElementById("musicTitleSimple");
+const musicStatusSimple = document.getElementById("musicStatusSimple");
+const musicIconSimple = document.getElementById("musicIconSimple");
+const musicPlayerSimple = document.getElementById("musicPlayerSimple");
+
+const playlist = [
+    { title: "Bintang 5 – Tenxii Remix", src: "assets/music/Tenxii-Bintang5.mp3"},
+    { title: "Ngga Dulu – Akbar Chalay", src: "assets/music/AkbarChalay-NggaDulu.mp3"},
+    { title: "Ngapain Repot – Toton Caribo", src: "assets/music/TotonCaribo-NgapainRepot.mp3" },
+    { title: "Monitor Ketua – Ecko Show", src: "assets/music/EckoShow-TorMonitor.mp3" },
+    { title: "Alamak – Rizky Febian", src: "assets/music/RizkyFebian-Alamak.mp3" },
+    { title: "Teruntuk Mia – Nuh", src: "assets/music/Nuh-TeruntukMia.mp3" },
+    { title: "Tabola Bale – Silet Open Up", src: "assets/music/SiletOpenUp-TabolaBale.mp3" },
+    { title: "Mejikuhibinu – Tenxii", src: "assets/music/TenxiSuisei-Mejikuhibiniu.mp3"},
+    { title: "Berubah – Tenxi Jemsii", src: "assets/music/TenxiJemsii-Berubah.mp3" }
+];
+
+let currentTrack = 0;
+let isPlaying = false;
+
+audio.src = playlist[currentTrack].src;
+musicTitleSimple.innerText = playlist[currentTrack].title;
+musicStatusSimple.innerText = "Tap to play";
+
+function togglePlaySimple() {
+    if (!audio) return;
+
+    if (isPlaying) {
+        audio.pause();
+        musicStatusSimple.innerText = "Paused";
+        musicIconSimple.className = "fas fa-music";
+    } else {
+        audio.play();
+        musicStatusSimple.innerText = "Playing";
+        musicIconSimple.className = "fas fa-pause";
+    }
+
+    isPlaying = !isPlaying;
+}
+
+audio.addEventListener("ended", () => {
+    currentTrack++;
+    if (currentTrack >= playlist.length) {
+        currentTrack = 0;
+    }
+    audio.src = playlist[currentTrack].src;
+    musicTitleSimple.innerText = playlist[currentTrack].title;
+    
+    if (isPlaying) {
+        audio.play();
+        musicStatusSimple.innerText = "Playing";
+        musicIconSimple.className = "fas fa-pause";
+    }
+});
+
+function handleMusicPlayerVisibility() {
+    if (window.innerWidth <= 768) {
+        const contactSection = document.getElementById('contact');
+        const footer = document.querySelector('footer');
+        
+        const contactRect = contactSection.getBoundingClientRect();
+        const footerRect = footer.getBoundingClientRect();
+        
+        const isInContactOrFooter = contactRect.top < window.innerHeight || footerRect.top < window.innerHeight;
+        
+        if (isInContactOrFooter) {
+            musicPlayerSimple.classList.add('hidden');
+        } else {
+            musicPlayerSimple.classList.remove('hidden');
+        }
+    } else {
+        musicPlayerSimple.classList.remove('hidden');
+    }
+}
+
+window.addEventListener('scroll', handleMusicPlayerVisibility);
+window.addEventListener('resize', handleMusicPlayerVisibility);
+
+function toggleBurgerMenu() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    const burgerMenu = document.querySelector('.burger-menu');
+    
+    mobileMenu.classList.toggle('active');
+    burgerMenu.classList.toggle('active');
+    
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+}
+
+function closeMobileMenu() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    const burgerMenu = document.querySelector('.burger-menu');
+    
+    mobileMenu.classList.remove('active');
+    burgerMenu.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+
+function setActiveNav() {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (window.pageYOffset >= (sectionTop - 200)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('onclick');
+        
+        if (href && href.includes(current)) {
+            link.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', setActiveNav);
+
+function scrollToSection(id) {
+    const section = document.getElementById(id);
+    if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+    }
+}
+
+function switchTab(tabName) {
+    const projectsContent = document.getElementById('projectsContent');
+    const certificatesContent = document.getElementById('certificatesContent');
+    const techstackContent = document.getElementById('techstackContent');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    
+    tabBtns.forEach(btn => btn.classList.remove('active'));
+    
+    projectsContent.classList.remove('active');
+    certificatesContent.classList.remove('active');
+    techstackContent.classList.remove('active');
+    
+    if (tabName === 'projects') {
+        projectsContent.classList.add('active');
+        tabBtns[0].classList.add('active');
+    } else if (tabName === 'certificates') {
+        certificatesContent.classList.add('active');
+        tabBtns[1].classList.add('active');
+    } else if (tabName === 'techstack') {
+        techstackContent.classList.add('active');
+        tabBtns[2].classList.add('active');
+    }
+}
+
+const techStack = [
+    { name: "HTML", category: "Frontend Markup", icon: "assets/icons/html.png" },
+    { name: "CSS", category: "Styling & Layout", icon: "assets/icons/css.png" },
+    { name: "JavaScript", category: "Programming Language", icon: "assets/icons/js.png" },
+    { name: "C++", category: "Programming Language", icon: "assets/icons/cplus.png" },
+    { name: "VueJS", category: "Frontend Framework", icon: "assets/icons/vue.png" },
+    { name: "Firebase", category: "Backend & Hosting", icon: "assets/icons/firebase.png" },
+    { name: "Figma", category: "UI / UX Design", icon: "assets/icons/figma.png" },
+    { name: "Canva", category: "Design Tool", icon: "assets/icons/canva.png" },
+    { name: "Adobe Lightroom", category: "Photo Editing", icon: "assets/icons/lr.png" },
+    { name: "Microsoft Word", category: "Office Productivity", icon: "assets/icons/word.png" },
+    { name: "Microsoft Excel", category: "Office Productivity", icon: "assets/icons/excel.png" },
+    { name: "PowerPoint", category: "Office Productivity", icon: "assets/icons/pwp.png" }
+];
+
+const techstackDisplay = document.getElementById("techstackDisplay");
+
+if (techstackDisplay) {
+    techStack.forEach(tech => {
+        const card = document.createElement("div");
+        card.className = "techstack-card";
+
+        card.innerHTML = `
+            <div class="techstack-icon">
+                <img src="${tech.icon}" alt="${tech.name}">
+            </div>
+            <div class="techstack-info">
+                <div class="techstack-name">${tech.name}</div>
+                <div class="techstack-category">${tech.category}</div>
+            </div>
+        `;
+
+        techstackDisplay.appendChild(card);
+    });
+}
+
+const certificates = [
+    {
+        title: "Fundamental UI Design",
+        issuer: "Coding Studio",
+        date: "2025",
+        image: "assets/certificates/fundamental-ui.jpg"
+    },
+    {
+        title: "Fundamental UX Design",
+        issuer: "Coding Studio",
+        date: "2025",
+        image: "assets/certificates/fundamental-ux.jpg"
+    },
+    {
+        title: "Microsoft Office",
+        issuer: "Kursus Digital & LKP Borju Komputer",
+        date: "2024",
+        image: "assets/certificates/office.png"
+    },
+    {
+        title: "Toefl Prediction",
+        issuer: "Global Operation Indonesia",
+        date: "2025",
+        image: "assets/certificates/toeflp.jpeg"
+    }
+];
+
+const certificatesDisplay = document.getElementById("certificatesDisplay");
+
+if (certificatesDisplay) {
+    certificates.forEach(cert => {
+        const card = document.createElement("div");
+        card.className = "certificate-card";
+        card.onclick = () => openCertificateModal(cert.image);
+        
+        card.innerHTML = `
+            <div class="certificate-image">
+                <img src="${cert.image}" alt="${cert.title}">
+                <div class="certificate-glow"></div>
+            </div>
+            <div class="certificate-content">
+                <h3 class="certificate-title">${cert.title}</h3>
+                <p class="certificate-issuer">${cert.issuer}</p>
+                <p class="certificate-date">${cert.date}</p>
+            </div>
+        `;
+        
+        certificatesDisplay.appendChild(card);
+    });
+}
+
+function openCertificateModal(imageSrc) {
+    const modal = document.getElementById('certificateModal');
+    const modalImage = document.getElementById('modalImage');
+    
+    modalImage.src = imageSrc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCertificateModal() {
+    const modal = document.getElementById('certificateModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+const projects = [
+    {
+        title: "Personal Portfolio",
+        desc: "A professional portfolio website designed and developed to showcase my creative profile, technical skills, and latest projects.",
+        image: "assets/thumbproject/portfolio.png",
+        badges: ["UI/UX Design", "Web Development"]
+    },
+    {
+        title: "Kirke Beta",
+        desc: "A marketplace platform for digital illustrators to showcase their work and manage artwork sales through a streamlined interface.",
+        image: "assets/thumbproject/kirke.png",
+        badges: ["UI/UX Design"]
+    },
+    {
+        title: "Oura Store",
+        desc: "A specialized e-commerce web design for game currency top-ups, featuring a fast and secure flow for purchasing in-game diamonds.",
+        image: "assets/thumbproject/oura.png",
+        badges: ["UI/UX Design"]
+    },
+    {
+        title: "Internet Rakyat",
+        desc: "Website penyedia layanan internet termurah dengan kecepatan yang setara dengan saingannya yang berharga mahal.",
+        image: "assets/thumbproject/internetrakyat.png",
+        badges: ["UI/UX Design"]
+    },
+    {
+        title: "Rimba Planner",
+        desc: "A consultation-based web platform for mountain trekking that provides trip planning services and travel booking for hikers.",
+        image: "assets/thumbproject/rimba.png",
+        badges: ["UI/UX Design"]
+    },
+    {
+        title: "Smart Queue",
+        desc: "A multi-purpose queue system featuring real-time tracking, administrative controls, and a customer feedback management portal.",
+        image: "assets/thumbproject/queue.png",
+        badges: ["UI/UX Design", "Web Development"]
+    },
+    {
+        title: "LaundryXpress",
+        desc: "A zone-based web platform for local laundry services that allows users to check regional pricing and book laundry packages.",
+        image: "assets/thumbproject/laundry.png",
+        badges: ["UI/UX Design"]
+    }
+];
+
+function renderProjects() {
+    const projectsDisplay = document.getElementById("projectsDisplay");
+    const isMobile = window.innerWidth <= 768;
+    const isSmallMobile = window.innerWidth <= 480;
+    const initialCount = isMobile ? 7 : 7;
+    
+    if (!projectsDisplay) return;
+    
+    projectsDisplay.innerHTML = '';
+    
+    const projectsToShow = showAllProjects ? projects : projects.slice(0, initialCount);
+    
+    projectsToShow.forEach((project, index) => {
+        const card = document.createElement("div");
+        card.className = "project-card";
+        card.setAttribute('data-index', index);
+        
+        if (isSmallMobile || projectsAnimated || portfolioObserved) {
+            card.style.opacity = '1';
+        }
+        
+        const badgesHTML = project.badges.map(badge => 
+            `<span class="project-badge">${badge}</span>`
+        ).join('');
+        
+        card.innerHTML = `
+            <div class="project-image">
+                <img src="${project.image}" alt="${project.title}">
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-description">${project.desc}</p>
+                <div class="project-badges">${badgesHTML}</div>
+            </div>
+        `;
+        
+        projectsDisplay.appendChild(card);
+    });
+    
+    if (isSmallMobile) {
+        projectsAnimated = true;
+        projectsDisplay.classList.add('rendered');
+    } else if (portfolioObserved && !projectsAnimated) {
+        setTimeout(() => animateProjects(), 100);
+    }
+}
+
+function animateProjects() {
+    const isSmallMobile = window.innerWidth <= 480;
+    
+    if (isSmallMobile) {
+        projectsAnimated = true;
+        return;
+    }
+    
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    projectCards.forEach((card, index) => {
+        const position = index % 3;
+        setTimeout(() => {
+            card.style.opacity = '1';
+            
+            if (position === 0) {
+                card.classList.add('animate-bottom-left');
+            } else if (position === 1) {
+                card.classList.add('animate-bottom-center');
+            } else {
+                card.classList.add('animate-bottom-right');
+            }
+        }, 100 * index);
+    });
+    
+    projectsAnimated = true;
+}
+
+function toggleProjects() {
+    showAllProjects = !showAllProjects;
+    
+    const projectsDisplay = document.getElementById("projectsDisplay");
+    if (showAllProjects) {
+        projectsDisplay.classList.add('no-animation');
+    } else {
+        projectsDisplay.classList.remove('no-animation');
+    }
+    
+    renderProjects();
+    
+    const seeMoreText = document.getElementById('seeMoreText');
+    const seeMoreIcon = document.getElementById('seeMoreIcon');
+    
+    if (showAllProjects) {
+        seeMoreText.textContent = 'Show Less';
+        seeMoreIcon.className = 'fas fa-arrow-up';
+    } else {
+        seeMoreText.textContent = 'Show More';
+        seeMoreIcon.className = 'fas fa-arrow-down';
+    }
+}
+
+window.addEventListener('resize', () => {
+    if (!showAllProjects) {
+        renderProjects();
+    }
+});
+
+function previewPhoto(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('photoPreview');
+    const previewImage = document.getElementById('previewImage');
+    const uploadLabel = document.getElementById('fileUploadLabel');
+    
+    if (file) {
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size exceeds 5MB. Please choose a smaller file.');
+            event.target.value = '';
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.src = e.target.result;
+            preview.style.display = 'flex';
+            uploadLabel.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function removePhoto() {
+    const photoInput = document.getElementById('commentPhoto');
+    const preview = document.getElementById('photoPreview');
+    const uploadLabel = document.getElementById('fileUploadLabel');
+    
+    photoInput.value = '';
+    preview.style.display = 'none';
+    uploadLabel.style.display = 'flex';
+}
+
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = contactForm.querySelector('.btn-submit');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        
+        emailjs.sendForm('service_d1bb4t2', 'template_whcrepp', this)
+            .then(function() {
+                alert('Message sent successfully! I will get back to you soon.');
+                contactForm.reset();
+            }, function(error) {
+                alert('Failed to send message. Please try again or contact me directly via email.');
+                console.error('EmailJS Error:', error);
+            })
+            .finally(function() {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            });
+    });
+}
+
+const commentForm = document.getElementById('commentForm');
+const commentsList = document.getElementById('commentsList');
+const commentCount = document.getElementById('commentCount');
+const commentsRef = database.ref('comments');
+
+function formatDate(timestamp) {
+    const now = Date.now();
+    const diff = now - timestamp;
+    
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    
+    if (seconds < 60) return 'Just now';
+    if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
+    
+    const date = new Date(timestamp);
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+function updateCommentCount() {
+    commentsRef.once('value', (snapshot) => {
+        const count = snapshot.numChildren();
+        if (commentCount) {
+            commentCount.textContent = count + 1;
+        }
+    });
+}
+
+function renderComment(commentId, commentData) {
+    const commentItem = document.createElement('div');
+    commentItem.className = 'comment-item';
+    commentItem.id = `comment-${commentId}`;
+    
+    const avatarHTML = commentData.photoURL 
+        ? `<img src="${commentData.photoURL}" alt="${commentData.name}">`
+        : `<div class="default-avatar"><i class="fas fa-user"></i></div>`;
+    
+    commentItem.innerHTML = `
+        <div class="comment-avatar">
+            ${avatarHTML}
+        </div>
+        <div class="comment-content">
+            <div class="comment-header">
+                <span class="comment-name">${commentData.name}</span>
+                <span class="comment-date">${formatDate(commentData.timestamp)}</span>
+            </div>
+            <p class="comment-text">${commentData.message}</p>
+        </div>
+    `;
+    
+    return commentItem;
+}
+
+function loadComments() {
+    if (!commentsList) return;
+    
+    commentsRef.orderByChild('timestamp').on('value', (snapshot) => {
+        commentsList.innerHTML = '';
+        
+        const comments = [];
+        snapshot.forEach((childSnapshot) => {
+            comments.push({
+                id: childSnapshot.key,
+                data: childSnapshot.val()
+            });
+        });
+        
+        comments.reverse().forEach(comment => {
+            const commentElement = renderComment(comment.id, comment.data);
+            commentsList.appendChild(commentElement);
+        });
+        
+        updateCommentCount();
+    });
+}
+
+async function uploadPhoto(file) {
+    try {
+        const timestamp = Date.now();
+        const filename = `comment-photos/${timestamp}_${file.name}`;
+        const storageRef = storage.ref(filename);
+        
+        const snapshot = await storageRef.put(file);
+        const downloadURL = await snapshot.ref.getDownloadURL();
+        return downloadURL;
+    } catch (error) {
+        console.error('Error uploading photo:', error);
+        throw error;
+    }
+}
+
+if (commentForm) {
+    commentForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('commentName').value.trim();
+        const message = document.getElementById('commentMessage').value.trim();
+        const photoInput = document.getElementById('commentPhoto');
+        
+        if (!name || !message) {
+            alert('Please fill in all required fields!');
+            return;
+        }
+        
+        const submitBtn = commentForm.querySelector('.btn-submit');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+        
+        try {
+            let photoURL = null;
+            
+            if (photoInput.files && photoInput.files[0]) {
+                photoURL = await uploadPhoto(photoInput.files[0]);
+            }
+            
+            const timestamp = Date.now();
+            
+            const newComment = {
+                name: name,
+                message: message,
+                photoURL: photoURL,
+                timestamp: timestamp,
+                date: new Date(timestamp).toISOString()
+            };
+            
+            await commentsRef.push(newComment);
+            
+            commentForm.reset();
+            removePhoto();
+            
+        } catch (error) {
+            console.error('Error posting comment:', error);
+            alert('Failed to post comment. Please try again.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Post Comment';
+        }
+    });
+}
+
+const observerOptions = {
+    threshold: 0.05,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            
+            if (entry.target.id === 'about') {
+                animateAboutSection();
+            }
+            
+            if (entry.target.id === 'portfolio') {
+                portfolioObserved = true;
+                animatePortfolioSection();
+            }
+        }
+    });
+}, observerOptions);
+
+function animateAboutSection() {
+    const aboutHeader = document.querySelector('.about-header');
+    const aboutContent = document.querySelector('.about-content');
+    const aboutStats = document.querySelector('.about-stats-wrapper');
+    
+    setTimeout(() => {
+        aboutHeader.classList.add('animate-in');
+        animateAboutText();
+    }, 400);
+    
+    setTimeout(() => {
+        aboutContent.classList.add('animate-in');
+    }, 700);
+    
+    setTimeout(() => {
+        aboutStats.classList.add('animate-in');
+    }, 1000);
+}
+
+function animatePortfolioSection() {
+    const portfolioHeader = document.querySelector('.portfolio-header');
+    const tabNavigation = document.querySelector('.tab-navigation');
+    const activeTabContent = document.querySelector('.tab-content.active');
+    
+    if (portfolioHeader) {
+        portfolioHeader.classList.add('animate-in');
+    }
+    
+    if (tabNavigation) {
+        tabNavigation.classList.add('animate-in');
+    }
+    
+    if (activeTabContent) {
+        activeTabContent.classList.add('animate-in');
+        
+        if (activeTabContent.id === 'projectsContent') {
+            setTimeout(() => animateProjects(), 100);
+        }
+        
+        if (activeTabContent.id === 'certificatesContent') {
+            const certificateCards = document.querySelectorAll('.certificate-card');
+            certificateCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.classList.add('animate-in');
+                }, 50 * index);
+            });
+        }
+        
+        if (activeTabContent.id === 'techstackContent') {
+            const techstackCards = document.querySelectorAll('.techstack-card');
+            techstackCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.classList.add('animate-in');
+                }, 50 * index);
+            });
+        }
+    }
+}
+
+function animateAboutText() {
+    const name = document.getElementById('aboutName');
+    
+    if (name.hasAttribute('data-animated')) return;
+    
+    name.setAttribute('data-animated', 'true');
+    
+    const nameText = "Muhammad Farid Syam";
+    
+    name.innerHTML = '';
+    
+    nameText.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.className = 'name-letter';
+        span.style.animationDelay = `${index * 0.05}s`;
+        name.appendChild(span);
+    });
+}
+
+function handleMobileCenterHover() {
+    if (window.innerWidth > 768) return;
+    
+    const statCards = document.querySelectorAll('.stat-card');
+    const projectCards = document.querySelectorAll('.project-card');
+    const certificateCards = document.querySelectorAll('.certificate-card');
+    const techstackCards = document.querySelectorAll('.techstack-card');
+    
+    const allCards = [...statCards, ...projectCards, ...certificateCards, ...techstackCards];
+    
+    function checkCenterCard() {
+        const viewportCenter = window.innerHeight / 2 + window.scrollY;
+        
+        allCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardCenter = rect.top + window.scrollY + rect.height / 2;
+            const distance = Math.abs(viewportCenter - cardCenter);
+            
+            if (distance < rect.height / 2) {
+                card.classList.add('center-hover');
+            } else {
+                card.classList.remove('center-hover');
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', checkCenterCard);
+    window.addEventListener('resize', checkCenterCard);
+    checkCenterCard();
+}
+
+window.addEventListener('resize', handleMobileCenterHover);
+window.addEventListener('DOMContentLoaded', handleMobileCenterHover);
+
+renderProjects();

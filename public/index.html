@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rid's - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-icons">
+                <div class="loading-icon">
+                    <i class="fab fa-figma"></i>
+                </div>
+                <div class="loading-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="loading-icon">
+                    <i class="fab fa-js"></i>
+                </div>
+            </div>
+            <h1 class="loading-title">
+                Welcome To My<br>
+                <span class="loading-highlight">Portfolio Website</span>
+            </h1>
+            <div class="loading-url">
+                <i class="fas fa-globe"></i>
+                <span id="typedUrl"></span>
+                <span class="cursor-blink">|</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-animation">
+        <div class="bg-circle bg-circle-1"></div>
+        <div class="bg-circle bg-circle-2"></div>
+        <div class="bg-circle bg-circle-3"></div>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/icons/logoweb.png" alt="ReFoxy Logo">
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a onclick="scrollToSection('home')" class="active">Home</a></li>
+            <li><a onclick="scrollToSection('about')">About</a></li>
+            <li><a onclick="scrollToSection('portfolio')">Portfolio</a></li>
+            <li><a onclick="scrollToSection('contact')">Contact</a></li>
+        </ul>
+
+        <div class="burger-menu" onclick="toggleBurgerMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-links">
+                <li><a onclick="scrollToSection('home'); closeMobileMenu()">Home</a></li>
+                <li><a onclick="scrollToSection('about'); closeMobileMenu()">About</a></li>
+                <li><a onclick="scrollToSection('portfolio'); closeMobileMenu()">Portfolio</a></li>
+                <li><a onclick="scrollToSection('contact'); closeMobileMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="portfolioPage" class="page active">
+        <section id="home" class="hero hero-animate">
+            <div class="hero-content animate-left">
+                <div class="hero-status closed">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Closed Commission</span>
+                </div>
+
+                <h1>
+                    <span id="firstNameDisplay">UI/UX Designer</span><br>
+                    <span class="highlight" id="lastNameDisplay">Frontend Developer</span>
+                </h1>
+
+                <p id="heroDescDisplay">
+                    I'm passionate about designing clean UI/UX and building clean front-end interfaces, focusing on intuitive, user-centered experiences that balance aesthetics and usability.
+                </p>
+
+                <div class="hero-bottom-section">
+                    <div class="tech-badges">
+                        <span class="tech-badge">
+                            <i class="fab fa-figma"></i> Figma
+                        </span>
+                        <span class="tech-badge">
+                            <i class="fab fa-js"></i> JavaScript
+                        </span>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a onclick="scrollToSection('portfolio')" class="btn btn-cv">Explore My Projects</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-image animate-right">
+                <div class="profile-img-wrapper" id="profileImgWrapper">
+                    <img id="heroImageDisplay" src="assets/foto/vecpic2.png" alt="Muhammad Farid Syam" class="profile-img">
+                </div>
+            </div>
+            <div class="scroll-indicator animate-bottom">
+                <span>Scroll Down</span>
+                <div class="arrow"></div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="about-header">
+                <h2 class="section-title">About <span class="highlight">Me</span></h2>
+                <p class="section-subtitlee">Transforming ideas into digital experiences</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-image-wrapper">
+                    <img id="aboutImageDisplay" src="assets/foto/vecpic.png" alt="About Me" class="about-img">
+                </div>
+
+                <div class="about-text-wrapper">
+                    <h2 class="about-greeting" id="aboutGreeting">Hello, I'm</h2>
+                    <h2 class="about-name" id="aboutName"></h2>
+                    
+                    <p class="about-description">
+                        I'm a tech-savvy designer who loves building things for the web. With a solid foundation in Informatics Engineering, I spend my time mastering Figma and JavaScript. Currently, I'm diving deeper into the Vue.js ecosystem to build even better user experiences.
+                    </p>
+
+                    <div class="about-bottom-section">
+                        <div class="about-quote-box">
+                            <p>"Design with soul, develop with logic."</p>
+                        </div>
+
+                        <div class="about-buttons">
+                            <a onclick="scrollToSection('portfolio')" class="btn-about btn-secondary">
+                                <i class="fas fa-code"></i> View Projects
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-stats-wrapper">
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-number">7</div>
+                    </div>
+                    <div class="stat-bottom">
+                        <div class="stat-info">
+                            <div class="stat-label">TOTAL PROJECTS</div>
+                            <div class="stat-desc">UI/UX and Website crafted</div>
+                        </div>
+                        <i class="fas fa-arrow-right stat-arrow"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="stat-number">4</div>
+                    </div>
+                    <div class="stat-bottom">
+                        <div class="stat-info">
+                            <div class="stat-label">CERTIFICATES</div>
+                            <div class="stat-desc">Professional skills validated</div>
+                        </div>
+                        <i class="fas fa-arrow-right stat-arrow"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-number">1</div>
+                    </div>
+                    <div class="stat-bottom">
+                        <div class="stat-info">
+                            <div class="stat-label">YEARS OF EXPERIENCE</div>
+                            <div class="stat-desc">Continuous learning journey</div>
+                        </div>
+                        <i class="fas fa-arrow-right stat-arrow"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio-showcase">
+            <div class="portfolio-bg-animation">
+                <div class="portfolio-circle portfolio-circle-1"></div>
+                <div class="portfolio-circle portfolio-circle-2"></div>
+                <div class="portfolio-circle portfolio-circle-3"></div>
+            </div>
+
+            <div class="portfolio-header">
+                <h2 class="section-title">Portfolio <span class="highlight">Showcase</span></h2>
+                <p class="section-subtitle">Explore my journey through projects, certifications, and technical expertise. Each section represents a milestone in my continuous learning path.</p>
+            </div>
+
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="switchTab('projects')">
+                    <i class="fas fa-code"></i>
+                    <span>Projects</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('certificates')">
+                    <i class="fas fa-award"></i>
+                    <span>Certificates</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('techstack')">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Tech Stack</span>
+                </button>
+            </div>
+
+            <div id="projectsContent" class="tab-content active">
+                <div class="projects-grid" id="projectsDisplay"></div>
+            </div>
+
+            <div id="certificatesContent" class="tab-content">
+                <div class="certificates-grid" id="certificatesDisplay"></div>
+            </div>
+
+            <div id="techstackContent" class="tab-content">
+                <div class="techstack-grid" id="techstackDisplay"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h2 class="section-title">Contact <span class="highlight">Me</span></h2>
+                    <p class="section-subtitle">Have a question? Send me a message, and I'll get back to you right away.</p>
+                </div>
+
+                <div class="contact-content">
+                    <div class="contact-form-section">
+                        <h3 class="form-title">Contact</h3>
+                        <p class="form-subtitle">Is there anything you want to discuss? Send me a message and let's talk.</p>
+                        
+                        <form id="contactForm" class="contact-form">
+                            <div class="form-group">
+                                <input type="text" id="contactName" name="from_name" placeholder="Your Name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" id="contactEmail" name="reply_to" placeholder="Your Email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea id="contactMessage" name="message" rows="9" placeholder="Your Message" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+
+                        <div class="contact-social">
+                            <h4>Connect With Me</h4>
+                            <div class="social-buttons">
+                                <a class="social-btn social-btn-full social-disabled">
+                                    <i class="fab fa-linkedin"></i>
+                                    <span>Let's Connect<br><small>on LinkedIn</small></span>
+                                </a>
+
+                                <div class="social-buttons-row">
+                                    <a href="https://instagram.com/mfaridsyam_" target="_blank" class="social-btn social-btn-half">
+                                        <i class="fab fa-instagram"></i>
+                                        <span>Instagram<br><small>@mfaridsyam_</small></span>
+                                    </a>
+                                    <a class="social-btn social-btn-half social-disabled">
+                                        <i class="fab fa-github"></i>
+                                        <span>Github<br><small>mfaridsyam</small></span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-comments-section">
+                        <div class="comments-header">
+                            <i class="fas fa-comments"></i>
+                            <h3>Comments (<span id="commentCount">1</span>)</h3>
+                        </div>
+
+                        <form id="commentForm" class="comment-form">
+                            <div class="form-group">
+                                <label for="commentName">Name <span class="required">*</span></label>
+                                <input type="text" id="commentName" placeholder="Enter your name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="commentMessage">Message <span class="required">*</span></label>
+                                <textarea id="commentMessage" rows="4" placeholder="Write your message here..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="commentPhoto">Profile Photo <span class="optional">(optional)</span></label>
+                                <div class="file-upload">
+                                    <input type="file" id="commentPhoto" accept="image/*" disabled>
+                                    <label for="commentPhoto" class="file-upload-label disabled-upload" id="fileUploadLabel">
+                                        <i class="fas fa-image"></i> Choose Profile Photo
+                                    </label>
+                                    <span class="file-size-info">Max file size: 5MB</span>
+                                </div>
+                                <div class="photo-preview" id="photoPreview" style="display: none;">
+                                    <img id="previewImage" src="" alt="Preview">
+                                    <button type="button" class="remove-photo" onclick="removePhoto()">
+                                        <i class="fas fa-times"></i> Remove Photo
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane"></i> Post Comment
+                            </button>
+                        </form>
+
+                        <div class="comments-list-wrapper">
+                            <div class="comment-item pinned-comment-item">
+                                <div class="comment-avatar">
+                                    <img src="assets/foto/adaadmincoy.jpeg" alt="Rid'S">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <span class="comment-name">Rid's</span>
+                                        <span class="admin-badge">Admin</span>
+                                        <span class="pinned-badge-inline">
+                                            <i class="fas fa-thumbtack"></i> 
+                                            <span class="pinned-text">PINNED COMMENT</span>
+                                        </span>
+                                        <span class="comment-date">Aug 6, 2024</span>
+                                    </div>
+                                    <p class="comment-text">Thanks for visiting! Contact me if you need anything</p>
+                                </div>
+                            </div>
+
+                            <div id="commentsList" class="comments-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-bottom">
+                <p>© 2024 MFarid Syam. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div class="music-player-simple" id="musicPlayerSimple" onclick="togglePlaySimple()">
+        <div class="music-icon-simple">
+            <i class="fas fa-music" id="musicIconSimple"></i>
+        </div>
+        <div class="music-info-simple">
+            <div class="music-title-simple" id="musicTitleSimple">Ngapain Repot – Toton Caribo</div>
+            <div class="music-status-simple" id="musicStatusSimple">Tap to play</div>
+        </div>
+        <audio id="audioPlayer"></audio>
+    </div>
+
+    <div class="certificate-modal" id="certificateModal" onclick="closeCertificateModal()">
+        <button class="modal-close" onclick="closeCertificateModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modalImage" src="" alt="Certificate">
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
