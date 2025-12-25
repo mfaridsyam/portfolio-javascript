@@ -486,68 +486,11 @@ function animateProjects() {
     projectsAnimated = true;
 }
 
-function toggleProjects() {
-    showAllProjects = !showAllProjects;
-    
-    const projectsDisplay = document.getElementById("projectsDisplay");
-    if (showAllProjects) {
-        projectsDisplay.classList.add('no-animation');
-    } else {
-        projectsDisplay.classList.remove('no-animation');
-    }
-    
-    renderProjects();
-    
-    const seeMoreText = document.getElementById('seeMoreText');
-    const seeMoreIcon = document.getElementById('seeMoreIcon');
-    
-    if (showAllProjects) {
-        seeMoreText.textContent = 'Show Less';
-        seeMoreIcon.className = 'fas fa-arrow-up';
-    } else {
-        seeMoreText.textContent = 'Show More';
-        seeMoreIcon.className = 'fas fa-arrow-down';
-    }
-}
-
 window.addEventListener('resize', () => {
     if (!showAllProjects) {
         renderProjects();
     }
 });
-
-function previewPhoto(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById('photoPreview');
-    const previewImage = document.getElementById('previewImage');
-    const uploadLabel = document.getElementById('fileUploadLabel');
-    
-    if (file) {
-        if (file.size > 5 * 1024 * 1024) {
-            alert('File size exceeds 5MB. Please choose a smaller file.');
-            event.target.value = '';
-            return;
-        }
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            previewImage.src = e.target.result;
-            preview.style.display = 'flex';
-            uploadLabel.style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-    }
-}
-
-function removePhoto() {
-    const photoInput = document.getElementById('commentPhoto');
-    const preview = document.getElementById('photoPreview');
-    const uploadLabel = document.getElementById('fileUploadLabel');
-    
-    photoInput.value = '';
-    preview.style.display = 'none';
-    uploadLabel.style.display = 'flex';
-}
 
 const contactForm = document.getElementById('contactForm');
 
@@ -655,28 +598,12 @@ function loadComments() {
     });
 }
 
-async function uploadPhoto(file) {
-    try {
-        const timestamp = Date.now();
-        const filename = `comment-photos/${timestamp}_${file.name}`;
-        const storageRef = storage.ref(filename);
-        
-        const snapshot = await storageRef.put(file);
-        const downloadURL = await snapshot.ref.getDownloadURL();
-        return downloadURL;
-    } catch (error) {
-        console.error('Error uploading photo:', error);
-        throw error;
-    }
-}
-
 if (commentForm) {
     commentForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const name = document.getElementById('commentName').value.trim();
         const message = document.getElementById('commentMessage').value.trim();
-        const photoInput = document.getElementById('commentPhoto');
         
         if (!name || !message) {
             alert('Please fill in all required fields!');
@@ -689,10 +616,6 @@ if (commentForm) {
         
         try {
             let photoURL = null;
-            
-            if (photoInput.files && photoInput.files[0]) {
-                photoURL = await uploadPhoto(photoInput.files[0]);
-            }
             
             const timestamp = Date.now();
             
@@ -707,7 +630,6 @@ if (commentForm) {
             await commentsRef.push(newComment);
             
             commentForm.reset();
-            removePhoto();
             
         } catch (error) {
             console.error('Error posting comment:', error);
@@ -817,7 +739,7 @@ function animateAboutText() {
         const span = document.createElement('span');
         span.textContent = char;
         span.className = 'name-letter';
-        span.style.animationDelay = `${index * 0.05}s`;
+        span.style.animationDelay = `${index * 0.10}s`;
         name.appendChild(span);
     });
 }

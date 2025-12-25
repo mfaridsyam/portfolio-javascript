@@ -366,7 +366,7 @@ nav {
     z-index: 1;
     opacity: 0;
     transform: translateX(-100px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-content.animate-in-left {
@@ -383,7 +383,7 @@ nav {
     z-index: 1;
     opacity: 0;
     transform: translateX(100px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-image.animate-in-right {
@@ -589,7 +589,7 @@ nav {
     margin-bottom: 3rem;
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease;
+    transition: all 1s ease;
 }
 
 .about-header.animate-in {
@@ -621,7 +621,7 @@ nav {
     margin-bottom: 3rem;
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease;
+    transition: all 1.8s ease;
 }
 
 .about-content.animate-in {
@@ -663,14 +663,6 @@ nav {
     margin: 0;
     display: flex;
     gap: 0.5rem;
-}
-
-.greeting-word {
-    display: inline-flex;
-}
-
-.letter {
-    display: inline-block;
 }
 
 .about-name {
@@ -1132,36 +1124,6 @@ nav {
     border-radius: 8px;
 }
 
-.project-overlay {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 8px;
-}
-
-.project-card:hover .project-overlay {
-    opacity: 1;
-}
-
-.project-overlay i {
-    font-size: 2.5rem;
-    color: #FFE600;
-    transform: scale(0);
-    transition: transform 0.3s ease;
-}
-
-.project-card:hover .project-overlay i {
-    transform: scale(1);
-}
-
 .project-content {
     padding: 1.8rem;
     flex: 1;
@@ -1228,6 +1190,7 @@ nav {
 .certificate-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 50px rgba(255, 255, 255, 0.1);
+    border: solid 1px #FFE600;
 }
 
 .certificate-image {
@@ -1728,45 +1691,6 @@ nav {
     font-size: 0.75rem;
     color: #666;
     margin-top: 0.5rem;
-}
-
-.photo-preview {
-    display: none;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    margin-top: 1rem;
-}
-
-.photo-preview img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #FFE600;
-}
-
-.remove-photo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: rgba(255, 77, 77, 0.1);
-    border: 1px solid rgba(255, 77, 77, 0.3);
-    border-radius: 8px;
-    color: #ff4d4d;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.remove-photo:hover {
-    background: rgba(255, 77, 77, 0.2);
-    border-color: #ff4d4d;
-    transform: translateY(-2px);
 }
 
 .comments-list-wrapper {

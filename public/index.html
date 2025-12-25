@@ -71,7 +71,7 @@
     </nav>
 
     <div id="portfolioPage" class="page active">
-        <section id="home" class="hero hero-animate">
+        <section id="home" class="hero">
             <div class="hero-content animate-left">
                 <div class="hero-status closed">
                     <span class="status-dot"></span>
@@ -185,7 +185,7 @@
                         <div class="stat-icon">
                             <i class="fas fa-globe"></i>
                         </div>
-                        <div class="stat-number">1</div>
+                        <div class="stat-number">1+</div>
                     </div>
                     <div class="stat-bottom">
                         <div class="stat-info">
@@ -307,23 +307,6 @@
                                 <textarea id="commentMessage" rows="4" placeholder="Write your message here..." required></textarea>
                             </div>
 
-                            <div class="form-group">
-                                <label for="commentPhoto">Profile Photo <span class="optional">(optional)</span></label>
-                                <div class="file-upload">
-                                    <input type="file" id="commentPhoto" accept="image/*" disabled>
-                                    <label for="commentPhoto" class="file-upload-label disabled-upload" id="fileUploadLabel">
-                                        <i class="fas fa-image"></i> Choose Profile Photo
-                                    </label>
-                                    <span class="file-size-info">Max file size: 5MB</span>
-                                </div>
-                                <div class="photo-preview" id="photoPreview" style="display: none;">
-                                    <img id="previewImage" src="" alt="Preview">
-                                    <button type="button" class="remove-photo" onclick="removePhoto()">
-                                        <i class="fas fa-times"></i> Remove Photo
-                                    </button>
-                                </div>
-                            </div>
-
                             <button type="submit" class="btn-submit">
                                 <i class="fas fa-paper-plane"></i> Post Comment
                             </button>
@@ -385,9 +368,9 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <script src="firebase-config.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
