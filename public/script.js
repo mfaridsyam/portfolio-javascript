@@ -115,13 +115,13 @@ const musicIconSimple = document.getElementById("musicIconSimple");
 const musicPlayerSimple = document.getElementById("musicPlayerSimple");
 
 const playlist = [
-    { title: "Bintang 5 – Tenxii Remix", src: "assets/music/Tenxii-Bintang5.mp3"},
-    { title: "Ngga Dulu – Akbar Chalay", src: "assets/music/AkbarChalay-NggaDulu.mp3"},
     { title: "Ngapain Repot – Toton Caribo", src: "assets/music/TotonCaribo-NgapainRepot.mp3" },
     { title: "Monitor Ketua – Ecko Show", src: "assets/music/EckoShow-TorMonitor.mp3" },
     { title: "Alamak – Rizky Febian", src: "assets/music/RizkyFebian-Alamak.mp3" },
     { title: "Teruntuk Mia – Nuh", src: "assets/music/Nuh-TeruntukMia.mp3" },
     { title: "Tabola Bale – Silet Open Up", src: "assets/music/SiletOpenUp-TabolaBale.mp3" },
+    { title: "Bintang 5 – Tenxii Remix", src: "assets/music/Tenxii-Bintang5.mp3"},
+    { title: "Ngga Dulu – Akbar Chalay", src: "assets/music/AkbarChalay-NggaDulu.mp3"},
     { title: "Mejikuhibinu – Tenxii", src: "assets/music/TenxiSuisei-Mejikuhibiniu.mp3"},
     { title: "Berubah – Tenxi Jemsii", src: "assets/music/TenxiJemsii-Berubah.mp3" }
 ];
