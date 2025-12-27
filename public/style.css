@@ -377,7 +377,7 @@ nav {
 .hero-image {
     flex: 1;
     display: flex;
-    max-width: 30rem;
+    max-width: 100%;
     justify-content: center;
     position: relative;
     z-index: 1;
@@ -539,25 +539,21 @@ nav {
 
 .profile-img-wrapper {
     position: relative;
-    width: 370px;
+    width: 100%;
     height: 370px;
 }
 
 .profile-img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    border: 4px solid #FFE600;
     object-fit: cover;
     position: relative;
     z-index: 2;
     transition: all 0.4s ease;
-    box-shadow: 0 0 40px rgba(255, 230, 0, 0.2), 0 0 60px rgba(255, 230, 0, 0.15);
 }
 
 .profile-img-wrapper:hover .profile-img {
     transform: scale(1.05);
-    box-shadow: 0 0 80px rgba(255, 230, 0, 0.4), 0 0 120px rgba(255, 230, 0, 0.3);
 }
 
 .scroll-indicator .arrow {
@@ -2176,13 +2172,8 @@ footer {
     }
 
     .profile-img-wrapper {
-        width: 240px;
+        width: 100%;
         height: 240px;
-        display: none;
-    }
-
-    .profile-img {
-        display: none;
     }
 
     .hero-content {
@@ -2369,7 +2360,8 @@ footer {
     }
 
     .hero-content {
-        margin-top: 2.2rem;
+        margin-top: -1rem;
+        margin-bottom: 0rem;
     }
 
     .tech-badge {
@@ -2419,14 +2411,6 @@ footer {
 
     .loading-url i {
         font-size: 0.9rem;
-    }
-
-    .profile-img-wrapper {
-        display: none;
-    }
-
-    .profile-img {
-        display: none;
     }
 
     .about-name {
@@ -2584,5 +2568,11 @@ footer {
         width: 35px;
         height: 35px;
         font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .about-name {
+        font-size: 1.8rem;
     }
 }
