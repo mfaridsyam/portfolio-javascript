@@ -6,16 +6,14 @@
     font-display: swap;
 }
 
-/* ==================== THEME VARIABLES ==================== */
 :root {
-    /* Light Mode Colors (Default) */
     --bg-primary: #ffffff;
     --bg-secondary: #f5f5f5;
     --bg-card: #ffffff;
     --bg-card-hover: #f9f9f9;
     --text-primary: #000000;
     --text-secondary: #333333;
-    --text-muted: #666666;
+    --text-muted: #0F3775;
     --accent-color: #0F3775;
     --accent-hover: #0a2a5a;
     --border-color: rgba(15, 55, 117, 0.1);
@@ -29,7 +27,6 @@
 }
 
 body.dark-mode {
-    /* Dark Mode Colors */
     --bg-primary: #0a0a0a;
     --bg-secondary: rgba(255, 255, 255, 0.02);
     --bg-card: rgba(255, 255, 255, 0.03);
@@ -63,7 +60,6 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ==================== LOADING SCREEN ==================== */
 .loading-screen {
     position: fixed;
     top: 0;
@@ -181,7 +177,6 @@ body {
     }
 }
 
-/* ==================== BACKGROUND ANIMATION ==================== */
 .bg-animation {
     position: fixed;
     top: 0;
@@ -248,7 +243,6 @@ body {
     80% { transform: translate(-30px, -40px) scale(0.95); }
 }
 
-/* ==================== PAGE VISIBILITY ==================== */
 .page {
     display: none;
 }
@@ -257,7 +251,6 @@ body {
     display: block;
 }
 
-/* ==================== NAVIGATION ==================== */
 nav {
     position: fixed;
     top: 0;
@@ -274,7 +267,6 @@ nav {
     transition: background 0.3s ease;
 }
 
-/* Logo styling untuk dark/light mode */
 .logo img {
     height: 25px;
     width: auto;
@@ -284,7 +276,6 @@ nav {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Hide logo berdasarkan theme */
 .logo .logo-light {
     display: block;
 }
@@ -301,7 +292,6 @@ body.dark-mode .logo .logo-dark {
     display: block;
 }
 
-/* Theme Toggle Button */
 .theme-toggle {
     position: relative;
     width: 45px;
@@ -379,7 +369,6 @@ body:not(.dark-mode) .theme-toggle i {
     color: var(--accent-color);
 }
 
-/* ==================== BURGER MENU ==================== */
 .burger-menu {
     display: none;
     flex-direction: column;
@@ -413,7 +402,6 @@ body:not(.dark-mode) .theme-toggle i {
     background: var(--accent-color);
 }
 
-/* ==================== MOBILE MENU ==================== */
 .mobile-menu {
     position: fixed;
     top: 0;
@@ -456,7 +444,6 @@ body:not(.dark-mode) .theme-toggle i {
     padding-left: 10px;
 }
 
-/* ==================== HERO SECTION ==================== */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -649,7 +636,6 @@ body:not(.dark-mode) .theme-toggle i {
     box-shadow: 0 4px 12px var(--shadow-color);
 }
 
-/* ==================== PROFILE IMAGE / LOTTIE ==================== */
 .profile-img-wrapper {
     position: relative;
     width: 100%;
@@ -683,7 +669,6 @@ body:not(.dark-mode) .theme-toggle i {
     100% { transform: translate(-50%, 0); opacity: 1; }
 }
 
-/* ==================== ABOUT SECTION ==================== */
 .about {
     padding: 8rem 12%;
     background: var(--bg-primary);
@@ -860,7 +845,6 @@ body:not(.dark-mode) .theme-toggle i {
     transform: translateY(-2px);
 }
 
-/* ==================== STATS CARDS ==================== */
 .about-stats-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -979,7 +963,6 @@ body:not(.dark-mode) .theme-toggle i {
     transform: translateX(0);
 }
 
-/* ==================== PORTFOLIO SECTION ==================== */
 .portfolio-showcase {
     padding: 8rem 8%;
     background: var(--bg-secondary);
@@ -1051,7 +1034,6 @@ body:not(.dark-mode) .theme-toggle i {
     transform: translateY(0);
 }
 
-/* ==================== TAB NAVIGATION ==================== */
 .tab-navigation {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1147,7 +1129,6 @@ body:not(.dark-mode) .theme-toggle i {
     display: block;
 }
 
-/* ==================== PROJECTS GRID ==================== */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1284,7 +1265,6 @@ body:not(.dark-mode) .theme-toggle i {
     border-color: var(--accent-color);
 }
 
-/* ==================== CERTIFICATES GRID ==================== */
 .certificates-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -1372,7 +1352,6 @@ body:not(.dark-mode) .theme-toggle i {
     font-size: 0.85rem;
 }
 
-/* ==================== CERTIFICATE MODAL ==================== */
 .certificate-modal {
     position: fixed;
     top: 0;
@@ -1431,7 +1410,6 @@ body:not(.dark-mode) .theme-toggle i {
     box-shadow: 0 20px 60px var(--shadow-color);
 }
 
-/* ==================== TECHSTACK GRID ==================== */
 .techstack-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1529,7 +1507,6 @@ body:not(.dark-mode) .theme-toggle i {
     max-height: 50px;
 }
 
-/* ==================== CONTACT SECTION ==================== */
 .contact {
     padding: 8rem 8%;
     background: var(--bg-primary);
@@ -1704,7 +1681,6 @@ body:not(.dark-mode) .theme-toggle i {
     color: var(--text-muted);
 }
 
-/* ==================== COMMENTS SECTION ==================== */
 .contact-comments-section {
     background: var(--bg-card);
     padding: 2.5rem;
@@ -1940,7 +1916,6 @@ body:not(.dark-mode) .theme-toggle i {
     font-size: 0.9rem;
 }
 
-/* ==================== FOOTER ==================== */
 footer {
     padding: 1.5rem 8%;
     border-top: 1px solid var(--border-color);
@@ -1960,7 +1935,6 @@ body.dark-mode footer {
     font-size: 0.9rem;
 }
 
-/* ==================== MUSIC PLAYER ==================== */
 .music-player-simple {
     position: fixed;
     bottom: 1.5rem;
@@ -2040,7 +2014,6 @@ body.dark-mode footer {
     color: var(--text-muted);
 }
 
-/* ==================== ANIMATIONS ==================== */
 .animate-section {
     opacity: 0;
     transition: opacity 0.8s ease;
@@ -2075,7 +2048,6 @@ body.dark-mode footer {
     transform: scale(1.1) !important;
 }
 
-/* ==================== RESPONSIVE DESIGN ==================== */
 @media (max-width: 1200px) {
     .about-content {
         grid-template-columns: 300px 1fr;

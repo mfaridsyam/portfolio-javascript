@@ -1,4 +1,3 @@
-// Disable right-click and keyboard shortcuts
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
     return false;
@@ -42,14 +41,12 @@ let showAllProjects = false;
 let projectsAnimated = false;
 let portfolioObserved = false;
 
-// ==================== THEME TOGGLE ====================
 function toggleTheme() {
     const body = document.body;
     const themeIcon = document.getElementById('themeIcon');
     
     body.classList.toggle('dark-mode');
     
-    // Update icon
     if (body.classList.contains('dark-mode')) {
         themeIcon.className = 'fas fa-sun';
         localStorage.setItem('theme', 'dark');
@@ -59,13 +56,11 @@ function toggleTheme() {
     }
 }
 
-// Load saved theme on page load
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme');
     const body = document.body;
     const themeIcon = document.getElementById('themeIcon');
     
-    // Default is light mode, so only apply dark mode if saved
     if (savedTheme === 'dark') {
         body.classList.add('dark-mode');
         if (themeIcon) themeIcon.className = 'fas fa-sun';
@@ -75,7 +70,6 @@ function loadTheme() {
     }
 }
 
-// Call loadTheme immediately before page loads
 loadTheme();
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -123,7 +117,6 @@ function initializeAnimations() {
     const heroImage = document.querySelector('.hero-image');
     const scrollIndicator = document.querySelector('.scroll-indicator');
     
-    // Inisialisasi Lottie Animation
     const lottieAnimation = lottie.loadAnimation({
         container: document.getElementById('lottie-animation'),
         renderer: 'svg',
