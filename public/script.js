@@ -407,40 +407,52 @@ const certificates = [
         title: "Fundamental UI Design",
         issuer: "Coding Studio",
         date: "2025",
-        image: "assets/certificates/fundamental-ui.jpg"
+        images: ["assets/certificates/fundamental-ui.jpg"]
     },
     {
         title: "Fundamental UX Design",
         issuer: "Coding Studio",
         date: "2025",
-        image: "assets/certificates/fundamental-ux.jpg"
+        images: ["assets/certificates/fundamental-ux.jpg"]
+    },
+    {
+        title: "Digital Representative",
+        issuer: "MAGENTA & PT Pegadaian",
+        date: "2025",
+        images: [
+            "assets/certificates/magenta.jpg",
+            "assets/certificates/magenta1.jpg"
+        ]
     },
     {
         title: "Microsoft Office",
         issuer: "Kursus Digital & LKP Borju Komputer",
         date: "2024",
-        image: "assets/certificates/office.png"
+        images: ["assets/certificates/office.png"]
     },
     {
         title: "Toefl Prediction",
         issuer: "Global Operation Indonesia",
         date: "2025",
-        image: "assets/certificates/toeflp.jpeg"
+        images: ["assets/certificates/toeflp.jpeg"]
     }
 ];
 
 const certificatesDisplay = document.getElementById("certificatesDisplay");
+let currentCertImages = [];
+let currentImageIndex = 0;
 
 if (certificatesDisplay) {
     certificates.forEach(cert => {
         const card = document.createElement("div");
         card.className = "certificate-card";
-        card.onclick = () => openCertificateModal(cert.image);
+        card.onclick = () => openCertificateModal(cert.images, cert.title);
         
         card.innerHTML = `
             <div class="certificate-image">
-                <img src="${cert.image}" alt="${cert.title}">
+                <img src="${cert.images[0]}" alt="${cert.title}">
                 <div class="certificate-glow"></div>
+                ${cert.images.length > 1 ? '<div class="multi-badge"><i class="fas fa-images"></i> ' + cert.images.length + '</div>' : ''}
             </div>
             <div class="certificate-content">
                 <h3 class="certificate-title">${cert.title}</h3>
@@ -453,19 +465,145 @@ if (certificatesDisplay) {
     });
 }
 
-function openCertificateModal(imageSrc) {
-    const modal = document.getElementById('certificateModal');
-    const modalImage = document.getElementById('modalImage');
+function openCertificateModal(images, title) {
+    currentCertImages = images;
+    currentImageIndex = 0;
     
-    modalImage.src = imageSrc;
+    const modal = document.getElementById('certificateModal');
+    const modalContent = modal.querySelector('.modal-content');
+    
+    modalContent.innerHTML = '';
+    
+    if (images.length === 1) {
+        modalContent.innerHTML = `
+            <div class="modal-main-image">
+                <img src="${images[0]}" alt="${title}">
+            </div>
+        `;
+    } else {
+        const isDesktop = window.innerWidth > 1024;
+        const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isDesktop) {
+            modalContent.innerHTML = `
+                <div class="modal-desktop-layout">
+                    <div class="modal-preview-left" onclick="selectPrevImage(event)">
+                        <img src="${images[1]}" alt="Previous">
+                    </div>
+                    
+                    <div class="modal-main-image">
+                        <img id="modalMainImage" src="${images[0]}" alt="${title}">
+                    </div>
+                    
+                    <div class="modal-preview-right" onclick="selectNextImage(event)">
+                        <img src="${images[1]}" alt="Next">
+                    </div>
+                </div>
+            `;
+        } else if (isTablet) {
+            modalContent.innerHTML = `
+                <div class="modal-tablet-layout">
+                    <button class="modal-nav-btn modal-prev" onclick="prevImage(event)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="modal-main-image">
+                        <img id="modalMainImage" src="${images[0]}" alt="${title}">
+                    </div>
+                    
+                    <button class="modal-nav-btn modal-next" onclick="nextImage(event)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                <div class="modal-mobile-layout">
+                    <div class="modal-main-image">
+                        <img id="modalMainImage" src="${images[0]}" alt="${title}">
+                    </div>
+                    
+                    <div class="modal-thumbnails-bottom">
+                        ${images.map((img, index) => `
+                            <div class="modal-thumb ${index === 0 ? 'active' : ''}" onclick="selectImage(${index}, event)">
+                                <img src="${img}" alt="Image ${index + 1}">
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+function selectImage(index, event) {
+    event.stopPropagation();
+    currentImageIndex = index;
+    updateModalImage();
+}
+
+function selectPrevImage(event) {
+    event.stopPropagation();
+    currentImageIndex = (currentImageIndex - 1 + currentCertImages.length) % currentCertImages.length;
+    updateModalImage();
+}
+
+function selectNextImage(event) {
+    event.stopPropagation();
+    currentImageIndex = (currentImageIndex + 1) % currentCertImages.length;
+    updateModalImage();
+}
+
+function prevImage(event) {
+    event.stopPropagation();
+    currentImageIndex = (currentImageIndex - 1 + currentCertImages.length) % currentCertImages.length;
+    updateModalImage();
+}
+
+function nextImage(event) {
+    event.stopPropagation();
+    currentImageIndex = (currentImageIndex + 1) % currentCertImages.length;
+    updateModalImage();
+}
+
+function updateModalImage() {
+    const mainImage = document.getElementById('modalMainImage');
+    const currentNum = document.getElementById('currentImageNum');
+    const thumbnails = document.querySelectorAll('.modal-thumb');
+    const previewLeft = document.querySelector('.modal-preview-left img');
+    const previewRight = document.querySelector('.modal-preview-right img');
+    
+    if (mainImage) {
+        mainImage.src = currentCertImages[currentImageIndex];
+    }
+    
+    if (currentNum) {
+        currentNum.textContent = currentImageIndex + 1;
+    }
+    
+    thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === currentImageIndex);
+    });
+    
+    if (previewLeft && previewRight) {
+        const prevIndex = (currentImageIndex - 1 + currentCertImages.length) % currentCertImages.length;
+        const nextIndex = (currentImageIndex + 1) % currentCertImages.length;
+        
+        previewLeft.src = currentCertImages[prevIndex];
+        previewRight.src = currentCertImages[nextIndex];
+    }
 }
 
 function closeCertificateModal() {
     const modal = document.getElementById('certificateModal');
     modal.classList.remove('active');
     document.body.style.overflow = '';
+    currentCertImages = [];
+    currentImageIndex = 0;
 }
 
 const projects = [
