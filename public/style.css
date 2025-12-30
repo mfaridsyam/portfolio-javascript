@@ -1527,6 +1527,7 @@ body:not(.dark-mode) .theme-toggle i {
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
+    position: relative;
 }
 
 .techstack-card:hover .techstack-icon {
@@ -1537,6 +1538,24 @@ body:not(.dark-mode) .theme-toggle i {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    position: absolute;
+    transition: opacity 0.3s ease;
+}
+
+.techstack-icon .icon-light {
+    opacity: 1;
+}
+
+.techstack-icon .icon-dark {
+    opacity: 0;
+}
+
+body.dark-mode .techstack-icon .icon-light {
+    opacity: 0;
+}
+
+body.dark-mode .techstack-icon .icon-dark {
+    opacity: 1;
 }
 
 .techstack-info {
@@ -2600,6 +2619,10 @@ body.dark-mode .footer-bottom p {
     
     .projects-grid:not(.rendered) .project-card {
         opacity: 0;
+    }
+
+    .techstack-grid {
+        gap: 1rem;
     }
 
     .contact {

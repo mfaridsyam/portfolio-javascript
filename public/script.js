@@ -306,18 +306,78 @@ function switchTab(tabName) {
 }
 
 const techStack = [
-    { name: "HTML", category: "Frontend Markup", icon: "assets/icons/html.png" },
-    { name: "CSS", category: "Styling & Layout", icon: "assets/icons/css.png" },
-    { name: "JavaScript", category: "Programming Language", icon: "assets/icons/js.png" },
-    { name: "C++", category: "Programming Language", icon: "assets/icons/cplus.png" },
-    { name: "VueJS", category: "Frontend Framework", icon: "assets/icons/vue.png" },
-    { name: "Firebase", category: "Backend & Hosting", icon: "assets/icons/firebase.png" },
-    { name: "Figma", category: "UI / UX Design", icon: "assets/icons/figma.png" },
-    { name: "Canva", category: "Design Tool", icon: "assets/icons/canva.png" },
-    { name: "Adobe Lightroom", category: "Photo Editing", icon: "assets/icons/lr.png" },
-    { name: "Microsoft Word", category: "Office Productivity", icon: "assets/icons/word.png" },
-    { name: "Microsoft Excel", category: "Office Productivity", icon: "assets/icons/excel.png" },
-    { name: "PowerPoint", category: "Office Productivity", icon: "assets/icons/pwp.png" }
+    { 
+        name: "HTML", 
+        category: "Frontend Markup", 
+        iconLight: "assets/icons/htmld.png",
+        iconDark: "assets/icons/html.png"
+    },
+    { 
+        name: "CSS", 
+        category: "Styling & Layout", 
+        iconLight: "assets/icons/cssd.png",
+        iconDark: "assets/icons/css.png"
+    },
+    { 
+        name: "JavaScript", 
+        category: "Programming Language", 
+        iconLight: "assets/icons/jsd.png",
+        iconDark: "assets/icons/js.png"
+    },
+    { 
+        name: "C++", 
+        category: "Programming Language", 
+        iconLight: "assets/icons/cplusd.png",
+        iconDark: "assets/icons/cplus.png"
+    },
+    { 
+        name: "VueJS", 
+        category: "Frontend Framework", 
+        iconLight: "assets/icons/vued.png",
+        iconDark: "assets/icons/vue.png"
+    },
+    { 
+        name: "Firebase", 
+        category: "Backend & Hosting", 
+        iconLight: "assets/icons/firebased.png",
+        iconDark: "assets/icons/firebase.png"
+    },
+    { 
+        name: "Figma", 
+        category: "UI / UX Design", 
+        iconLight: "assets/icons/figmad.png",
+        iconDark: "assets/icons/figma.png"
+    },
+    { 
+        name: "Canva", 
+        category: "Design Tool", 
+        iconLight: "assets/icons/canvad.png",
+        iconDark: "assets/icons/canva.png"
+    },
+    { 
+        name: "Adobe Lightroom", 
+        category: "Photo Editing", 
+        iconLight: "assets/icons/lrd.png",
+        iconDark: "assets/icons/lr.png"
+    },
+    { 
+        name: "Microsoft Word", 
+        category: "Office Productivity", 
+        iconLight: "assets/icons/wordd.png",
+        iconDark: "assets/icons/word.png"
+    },
+    { 
+        name: "Microsoft Excel", 
+        category: "Office Productivity", 
+        iconLight: "assets/icons/exceld.png",
+        iconDark: "assets/icons/excel.png"
+    },
+    { 
+        name: "PowerPoint", 
+        category: "Office Productivity", 
+        iconLight: "assets/icons/pwpd.png",
+        iconDark: "assets/icons/pwp.png"
+    }
 ];
 
 const techstackDisplay = document.getElementById("techstackDisplay");
@@ -329,7 +389,8 @@ if (techstackDisplay) {
 
         card.innerHTML = `
             <div class="techstack-icon">
-                <img src="${tech.icon}" alt="${tech.name}">
+                <img src="${tech.iconLight}" alt="${tech.name}" class="icon-light">
+                <img src="${tech.iconDark}" alt="${tech.name}" class="icon-dark">
             </div>
             <div class="techstack-info">
                 <div class="techstack-name">${tech.name}</div>
