@@ -144,8 +144,6 @@ function initializeAnimations() {
         section.classList.add('animate-section');
         observer.observe(section);
     });
-    
-    handleMobileCenterHover();
 }
 
 const audio = document.getElementById("audioPlayer");
@@ -453,48 +451,114 @@ const projects = [
 
 function renderProjects() {
     const projectsDisplay = document.getElementById("projectsDisplay");
+    const seeMoreContainer = document.getElementById("seeMoreContainer");
+    const btnSeeMore = document.getElementById("btnSeeMore");
     const isMobile = window.innerWidth <= 768;
     const isSmallMobile = window.innerWidth <= 480;
-    const initialCount = isMobile ? 7 : 7;
+    const initialCount = isMobile ? 4 : 6;
     
     if (!projectsDisplay) return;
     
-    projectsDisplay.innerHTML = '';
-    
     const projectsToShow = showAllProjects ? projects : projects.slice(0, initialCount);
     
-    projectsToShow.forEach((project, index) => {
-        const card = document.createElement("div");
-        card.className = "project-card";
-        card.setAttribute('data-index', index);
-        
-        if (isSmallMobile || projectsAnimated || portfolioObserved) {
+    if (showAllProjects && projectsDisplay.children.length <= initialCount) {
+        for (let i = projectsDisplay.children.length; i < projects.length; i++) {
+            const project = projects[i];
+            const card = document.createElement("div");
+            card.className = "project-card";
+            card.setAttribute('data-index', i);
             card.style.opacity = '1';
+            card.style.transform = 'translate(0, 0)';
+            
+            const badgesHTML = project.badges.map(badge => 
+                `<span class="project-badge">${badge}</span>`
+            ).join('');
+            
+            card.innerHTML = `
+                <div class="project-image">
+                    <img src="${project.image}" alt="${project.title}">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-description">${project.desc}</p>
+                    <div class="project-badges">${badgesHTML}</div>
+                </div>
+            `;
+            
+            projectsDisplay.appendChild(card);
+        }
+    } else if (!showAllProjects && projectsDisplay.children.length > initialCount) {
+        while (projectsDisplay.children.length > initialCount) {
+            projectsDisplay.removeChild(projectsDisplay.lastChild);
+        }
+    } else {
+        projectsDisplay.innerHTML = '';
+        
+        projectsToShow.forEach((project, index) => {
+            const card = document.createElement("div");
+            card.className = "project-card";
+            card.setAttribute('data-index', index);
+            
+            if (isSmallMobile || projectsAnimated || portfolioObserved) {
+                card.style.opacity = '1';
+            }
+            
+            const badgesHTML = project.badges.map(badge => 
+                `<span class="project-badge">${badge}</span>`
+            ).join('');
+            
+            card.innerHTML = `
+                <div class="project-image">
+                    <img src="${project.image}" alt="${project.title}">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-description">${project.desc}</p>
+                    <div class="project-badges">${badgesHTML}</div>
+                </div>
+            `;
+            
+            projectsDisplay.appendChild(card);
+        });
+        
+        if (isSmallMobile) {
+            projectsAnimated = true;
+            projectsDisplay.classList.add('rendered');
+        } else if (portfolioObserved && !projectsAnimated) {
+            setTimeout(() => animateProjects(), 100);
+        }
+    }
+    
+    if (seeMoreContainer && btnSeeMore) {
+        if (projects.length <= initialCount) {
+            seeMoreContainer.style.display = 'none';
+        } else {
+            seeMoreContainer.style.display = 'flex';
+            
+            if (showAllProjects) {
+                btnSeeMore.innerHTML = '<span>Show Less</span><i class="fas fa-arrow-up"></i>';
+            } else {
+                btnSeeMore.innerHTML = '<span>See More Projects</span><i class="fas fa-arrow-right"></i>';
+            }
         }
         
-        const badgesHTML = project.badges.map(badge => 
-            `<span class="project-badge">${badge}</span>`
-        ).join('');
-        
-        card.innerHTML = `
-            <div class="project-image">
-                <img src="${project.image}" alt="${project.title}">
-            </div>
-            <div class="project-content">
-                <h3 class="project-title">${project.title}</h3>
-                <p class="project-description">${project.desc}</p>
-                <div class="project-badges">${badgesHTML}</div>
-            </div>
-        `;
-        
-        projectsDisplay.appendChild(card);
-    });
+        if (portfolioObserved && !seeMoreContainer.classList.contains('animate-in')) {
+            setTimeout(() => {
+                seeMoreContainer.classList.add('animate-in');
+            }, 500);
+        }
+    }
+}
+
+function toggleShowAllProjects() {
+    showAllProjects = !showAllProjects;
+    renderProjects();
     
-    if (isSmallMobile) {
-        projectsAnimated = true;
-        projectsDisplay.classList.add('rendered');
-    } else if (portfolioObserved && !projectsAnimated) {
-        setTimeout(() => animateProjects(), 100);
+    if (!showAllProjects) {
+        const portfolioSection = document.getElementById('portfolio');
+        if (portfolioSection) {
+            portfolioSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 }
 
@@ -726,6 +790,7 @@ function animatePortfolioSection() {
     const portfolioHeader = document.querySelector('.portfolio-header');
     const tabNavigation = document.querySelector('.tab-navigation');
     const activeTabContent = document.querySelector('.tab-content.active');
+    const seeMoreContainer = document.getElementById('seeMoreContainer');
     
     if (portfolioHeader) {
         portfolioHeader.classList.add('animate-in');
@@ -740,6 +805,12 @@ function animatePortfolioSection() {
         
         if (activeTabContent.id === 'projectsContent') {
             setTimeout(() => animateProjects(), 100);
+            
+            if (seeMoreContainer) {
+                setTimeout(() => {
+                    seeMoreContainer.classList.add('animate-in');
+                }, 500);
+            }
         }
         
         if (activeTabContent.id === 'certificatesContent') {
@@ -779,43 +850,9 @@ function animateAboutText() {
         const span = document.createElement('span');
         span.textContent = char;
         span.className = 'name-letter';
-        span.style.animationDelay = `${index * 0.10}s`;
+        span.style.animationDelay = `${index * 0.09}s`;
         name.appendChild(span);
     });
 }
-
-function handleMobileCenterHover() {
-    if (window.innerWidth > 768) return;
-    
-    const statCards = document.querySelectorAll('.stat-card');
-    const projectCards = document.querySelectorAll('.project-card');
-    const certificateCards = document.querySelectorAll('.certificate-card');
-    const techstackCards = document.querySelectorAll('.techstack-card');
-    
-    const allCards = [...statCards, ...projectCards, ...certificateCards, ...techstackCards];
-    
-    function checkCenterCard() {
-        const viewportCenter = window.innerHeight / 2 + window.scrollY;
-        
-        allCards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const cardCenter = rect.top + window.scrollY + rect.height / 2;
-            const distance = Math.abs(viewportCenter - cardCenter);
-            
-            if (distance < rect.height / 2) {
-                card.classList.add('center-hover');
-            } else {
-                card.classList.remove('center-hover');
-            }
-        });
-    }
-    
-    window.addEventListener('scroll', checkCenterCard);
-    window.addEventListener('resize', checkCenterCard);
-    checkCenterCard();
-}
-
-window.addEventListener('resize', handleMobileCenterHover);
-window.addEventListener('DOMContentLoaded', handleMobileCenterHover);
 
 renderProjects();
