@@ -489,7 +489,7 @@ const projects = [
     },
     {
         title: "Internet Rakyat",
-        desc: "Website penyedia layanan internet termurah dengan kecepatan yang setara dengan saingannya yang berharga mahal.",
+        desc: "The cheapest internet service provider website with speeds comparable to its more expensive competitors.",
         image: "assets/thumbproject/internetrakyat.png",
         badges: ["UI/UX Design"]
     },
@@ -500,16 +500,22 @@ const projects = [
         badges: ["UI/UX Design"]
     },
     {
+        title: "LaundryXpress",
+        desc: "A zone-based web platform for local laundry services that allows users to check regional pricing and book laundry packages.",
+        image: "assets/thumbproject/laundry.png",
+        badges: ["UI/UX Design"]
+    },
+    {
         title: "Smart Queue",
         desc: "A multi-purpose queue system featuring real-time tracking, administrative controls, and a customer feedback management portal.",
         image: "assets/thumbproject/queue.png",
         badges: ["UI/UX Design", "Web Development"]
     },
     {
-        title: "LaundryXpress",
-        desc: "A zone-based web platform for local laundry services that allows users to check regional pricing and book laundry packages.",
-        image: "assets/thumbproject/laundry.png",
-        badges: ["UI/UX Design"]
+        title: "Wind Monitor",
+        desc: "An Internet of Things-based weather monitoring website designed to collect environmental data in real time and serve as an early warning system for natural disasters.",
+        image: "assets/thumbproject/iot.png",
+        badges: ["UI/UX Design", "Web Development"]
     }
 ];
 
