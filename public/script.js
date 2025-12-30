@@ -61,12 +61,15 @@ function loadTheme() {
     const body = document.body;
     const themeIcon = document.getElementById('themeIcon');
     
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
-        if (themeIcon) themeIcon.className = 'fas fa-sun';
-    } else {
+    if (savedTheme === 'light') {
         body.classList.remove('dark-mode');
         if (themeIcon) themeIcon.className = 'fas fa-moon';
+    } else {
+        body.classList.add('dark-mode');
+        if (themeIcon) themeIcon.className = 'fas fa-sun';
+        if (!savedTheme) {
+            localStorage.setItem('theme', 'dark');
+        }
     }
 }
 
