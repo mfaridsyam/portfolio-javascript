@@ -156,15 +156,42 @@ const musicIconSimple = document.getElementById("musicIconSimple");
 const musicPlayerSimple = document.getElementById("musicPlayerSimple");
 
 const playlist = [
-    { title: "Ngapain Repot – Toton Caribo", src: "assets/music/TotonCaribo-NgapainRepot.mp3" },
-    { title: "Monitor Ketua – Ecko Show", src: "assets/music/EckoShow-TorMonitor.mp3" },
-    { title: "Alamak – Rizky Febian", src: "assets/music/RizkyFebian-Alamak.mp3" },
-    { title: "Teruntuk Mia – Nuh", src: "assets/music/Nuh-TeruntukMia.mp3" },
-    { title: "Tabola Bale – Silet Open Up", src: "assets/music/SiletOpenUp-TabolaBale.mp3" },
-    { title: "Bintang 5 – Tenxii Remix", src: "assets/music/Tenxii-Bintang5.mp3"},
-    { title: "Ngga Dulu – Akbar Chalay", src: "assets/music/AkbarChalay-NggaDulu.mp3"},
-    { title: "Mejikuhibinu – Tenxii", src: "assets/music/TenxiSuisei-Mejikuhibiniu.mp3"},
-    { title: "Berubah – Tenxi Jemsii", src: "assets/music/TenxiJemsii-Berubah.mp3" }
+    { 
+        title: "Ngapain Repot – Toton Caribo", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162585/TotonCaribo-NgapainRepot_lhmbgf.mp3"
+    },
+    { 
+        title: "Monitor Ketua – Ecko Show", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162707/EckoShow-TorMonitor_rl55yh.mp3"
+    },
+    { 
+        title: "Tabola Bale – Silet Open Up", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162714/SiletOpenUp-TabolaBale_nuotw9.mp3"
+    },
+    { 
+        title: "Bintang 5 – Tenxii Remix", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162750/Tenxii-Bintang5_ilfc8r.mp3"
+    },
+    { 
+        title: "Alamak – Rizky Febian", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162722/RizkyFebian-Alamak_yiohla.mp3"
+    },
+    { 
+        title: "Teruntuk Mia – Nuh", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162721/Nuh-TeruntukMia_uggo8r.mp3"
+    },
+    { 
+        title: "Ngga Dulu – Akbar Chalay", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162742/AkbarChalay-NggaDulu_p0gzj6.mp3"
+    },
+    { 
+        title: "Mejikuhibinu – Tenxii", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162671/TenxiSuisei-Mejikuhibiniu_wmz0dl.mp3"
+    },
+    { 
+        title: "Berubah – Tenxi Jemsii", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162712/TenxiJemsii-Berubah_cjdfyf.mp3"
+    }
 ];
 
 let currentTrack = 0;
@@ -185,11 +212,22 @@ function togglePlaySimple() {
         isMusicLoaded = true;
         
         audio.addEventListener('canplay', function onCanPlay() {
-            audio.play();
+            audio.play().catch(err => {
+                console.error('Play error:', err);
+                musicStatusSimple.innerText = "Error playing";
+                musicIconSimple.className = "fas fa-exclamation-circle";
+            });
             musicStatusSimple.innerText = "Playing";
             musicIconSimple.className = "fas fa-pause";
             isPlaying = true;
             audio.removeEventListener('canplay', onCanPlay);
+        }, { once: true });
+        
+        audio.addEventListener('error', function(e) {
+            console.error('Audio error:', e);
+            musicStatusSimple.innerText = "Failed to load";
+            musicIconSimple.className = "fas fa-exclamation-circle";
+            isMusicLoaded = false;
         }, { once: true });
         
         return;
@@ -200,7 +238,10 @@ function togglePlaySimple() {
         musicStatusSimple.innerText = "Paused";
         musicIconSimple.className = "fas fa-music";
     } else {
-        audio.play();
+        audio.play().catch(err => {
+            console.error('Play error:', err);
+            musicStatusSimple.innerText = "Error";
+        });
         musicStatusSimple.innerText = "Playing";
         musicIconSimple.className = "fas fa-pause";
     }
@@ -215,13 +256,20 @@ audio.addEventListener("ended", () => {
     }
     
     musicStatusSimple.innerText = "Loading next...";
+    musicIconSimple.className = "fas fa-spinner fa-spin";
+    
     audio.src = playlist[currentTrack].src;
     musicTitleSimple.innerText = playlist[currentTrack].title;
     
     if (isPlaying) {
-        audio.play();
-        musicStatusSimple.innerText = "Playing";
-        musicIconSimple.className = "fas fa-pause";
+        audio.play().then(() => {
+            musicStatusSimple.innerText = "Playing";
+            musicIconSimple.className = "fas fa-pause";
+        }).catch(err => {
+            console.error('Play error:', err);
+            musicStatusSimple.innerText = "Error";
+            musicIconSimple.className = "fas fa-exclamation-circle";
+        });
     }
 });
 
