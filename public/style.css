@@ -2872,9 +2872,6 @@ body.dark-mode .footer-bottom p {
         height: 35px;
         font-size: 1rem;
     }
-    .image-counter {
-    display: none;
-    }
 }
 
 @media (max-width: 400px) {

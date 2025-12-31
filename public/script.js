@@ -169,13 +169,31 @@ const playlist = [
 
 let currentTrack = 0;
 let isPlaying = false;
+let isMusicLoaded = false;
 
-audio.src = playlist[currentTrack].src;
 musicTitleSimple.innerText = playlist[currentTrack].title;
 musicStatusSimple.innerText = "Tap to play";
 
 function togglePlaySimple() {
     if (!audio) return;
+
+    if (!isMusicLoaded) {
+        musicStatusSimple.innerText = "Loading...";
+        musicIconSimple.className = "fas fa-spinner fa-spin";
+        
+        audio.src = playlist[currentTrack].src;
+        isMusicLoaded = true;
+        
+        audio.addEventListener('canplay', function onCanPlay() {
+            audio.play();
+            musicStatusSimple.innerText = "Playing";
+            musicIconSimple.className = "fas fa-pause";
+            isPlaying = true;
+            audio.removeEventListener('canplay', onCanPlay);
+        }, { once: true });
+        
+        return;
+    }
 
     if (isPlaying) {
         audio.pause();
@@ -195,6 +213,8 @@ audio.addEventListener("ended", () => {
     if (currentTrack >= playlist.length) {
         currentTrack = 0;
     }
+    
+    musicStatusSimple.innerText = "Loading next...";
     audio.src = playlist[currentTrack].src;
     musicTitleSimple.innerText = playlist[currentTrack].title;
     
