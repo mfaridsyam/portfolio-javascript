@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "faridsyam",
     "public": "public",
     "ignore": [
       "firebase.json",

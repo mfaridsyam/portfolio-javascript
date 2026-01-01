@@ -1833,6 +1833,151 @@ body.dark-mode .techstack-icon .icon-dark {
     box-shadow: 0 4px 12px var(--shadow-color);
 }
 
+.notification-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 1rem;
+}
+
+.notification-popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-content {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    box-shadow: 0 20px 60px var(--shadow-color);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.notification-popup.show .notification-content {
+    transform: scale(1);
+    animation: popupBounce 0.5s ease;
+}
+
+@keyframes popupBounce {
+    0% { transform: scale(0.8); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.notification-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--accent-color-rgb), 0.1);
+    border: 3px solid var(--accent-color);
+    position: relative;
+}
+
+.notification-icon::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    animation: pulseRing 1.5s ease-out infinite;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.notification-icon i {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+}
+
+.notification-icon.error {
+    border-color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.1);
+}
+
+.notification-icon.error::before {
+    border-color: #ff4d4d;
+}
+
+.notification-icon.error i {
+    color: #ff4d4d;
+}
+
+.notification-message {
+    text-align: center;
+}
+
+.notification-message h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.notification-message p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.notification-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 35px;
+    height: 35px;
+    background: rgba(var(--accent-color-rgb), 0.1);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--text-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.notification-close:hover {
+    background: var(--accent-color);
+    color: var(--bg-primary);
+    border-color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
 .contact-social {
     margin-top: 2.5rem;
     padding-top: 2rem;
@@ -2749,7 +2894,7 @@ body.dark-mode .footer-bottom p {
     }
 
     .techstack-grid {
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .contact {
@@ -2761,6 +2906,28 @@ body.dark-mode .footer-bottom p {
         padding: 1.5rem;
     }
     
+    .notification-content {
+        padding: 1.5rem;
+        max-width: 90%;
+    }
+
+    .notification-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .notification-icon i {
+        font-size: 2rem;
+    }
+
+    .notification-message h4 {
+        font-size: 1.2rem;
+    }
+
+    .notification-message p {
+        font-size: 0.9rem;
+    }
+        
     .music-player-simple {
         padding: 0.5rem 0.7rem;
         max-width: 180px;

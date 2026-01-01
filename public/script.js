@@ -90,7 +90,7 @@ function showLoadingScreen() {
     mainContent.style.display = 'none';
     nav.style.display = 'none';
     
-    const urlText = 'm-farid-syam.web.app';
+    const urlText = 'faridsyam.web.app';
     let index = 0;
     
     setTimeout(() => {
@@ -149,6 +149,66 @@ function initializeAnimations() {
     });
 }
 
+function saveCommentTime() {
+    try {
+        localStorage.setItem('lastCommentTime', Date.now().toString());
+        console.log('Comment time saved:', Date.now());
+    } catch (error) {
+        console.error('Error saving comment time:', error);
+    }
+}
+
+function canPostComment() {
+    try {
+        const lastCommentTime = localStorage.getItem('lastCommentTime');
+        
+        if (!lastCommentTime) {
+            return true;
+        }
+        
+        const lastTime = new Date(parseInt(lastCommentTime));
+        const now = new Date();
+        
+        const lastDay = new Date(lastTime.getFullYear(), lastTime.getMonth(), lastTime.getDate());
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        return today > lastDay;
+    } catch (error) {
+        console.error('Error checking comment permission:', error);
+        return true;
+    }
+}
+
+function getTimeUntilNextComment() {
+    try {
+        const lastCommentTime = localStorage.getItem('lastCommentTime');
+        
+        if (!lastCommentTime) {
+            return null;
+        }
+        
+        const lastTime = new Date(parseInt(lastCommentTime));
+        const tomorrow = new Date(lastTime.getFullYear(), lastTime.getMonth(), lastTime.getDate() + 1);
+        const now = new Date();
+        
+        const diff = tomorrow - now;
+        
+        if (diff <= 0) {
+            return null;
+        }
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        
+        return `${hours} hours ${minutes} minutes`;
+    } catch (error) {
+        console.error('Error calculating time:', error);
+        return null;
+    }
+}
+
+
+
 const audio = document.getElementById("audioPlayer");
 const musicTitleSimple = document.getElementById("musicTitleSimple");
 const musicStatusSimple = document.getElementById("musicStatusSimple");
@@ -157,16 +217,16 @@ const musicPlayerSimple = document.getElementById("musicPlayerSimple");
 
 const playlist = [
     { 
+        title: "Tabola Bale – Silet Open Up", 
+        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162714/SiletOpenUp-TabolaBale_nuotw9.mp3"
+    },
+    { 
         title: "Ngapain Repot – Toton Caribo", 
         src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162585/TotonCaribo-NgapainRepot_lhmbgf.mp3"
     },
     { 
         title: "Monitor Ketua – Ecko Show", 
         src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162707/EckoShow-TorMonitor_rl55yh.mp3"
-    },
-    { 
-        title: "Tabola Bale – Silet Open Up", 
-        src: "https://res.cloudinary.com/dnacoymkh/video/upload/v1767162714/SiletOpenUp-TabolaBale_nuotw9.mp3"
     },
     { 
         title: "Bintang 5 – Tenxii Remix", 
@@ -694,6 +754,12 @@ const projects = [
         badges: ["UI/UX Design"]
     },
     {
+        title: "LaundryXpress",
+        desc: "A zone-based web platform for local laundry services that allows users to check regional pricing and book laundry packages.",
+        image: "assets/thumbproject/laundry.png",
+        badges: ["UI/UX Design"]
+    },
+    {
         title: "Internet Rakyat",
         desc: "The cheapest internet service provider website with speeds comparable to its more expensive competitors.",
         image: "assets/thumbproject/internetrakyat.png",
@@ -703,12 +769,6 @@ const projects = [
         title: "Rimba Planner",
         desc: "A consultation-based web platform for mountain trekking that provides trip planning services and travel booking for hikers.",
         image: "assets/thumbproject/rimba.png",
-        badges: ["UI/UX Design"]
-    },
-    {
-        title: "LaundryXpress",
-        desc: "A zone-based web platform for local laundry services that allows users to check regional pricing and book laundry packages.",
-        image: "assets/thumbproject/laundry.png",
         badges: ["UI/UX Design"]
     },
     {
@@ -879,15 +939,34 @@ if (contactForm) {
         e.preventDefault();
         
         const submitBtn = contactForm.querySelector('.btn-submit');
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const message = document.getElementById('contactMessage').value;
+        
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         
-        emailjs.sendForm('service_d1bb4t2', 'template_whcrepp', this)
+        const templateParams = {
+            name: name,
+            email: email,
+            message: message,
+            title: 'Contact Us'
+        };
+        
+        emailjs.send('service_d1bb4t2', 'template_whcrepp', templateParams)
             .then(function() {
-                alert('Message sent successfully! I will get back to you soon.');
+                showNotification(
+                    'success',
+                    'Message Sent!',
+                    'Your message has been sent successfully!'
+                );
                 contactForm.reset();
             }, function(error) {
-                alert('Failed to send message. Please try again or contact me directly via email.');
+                showNotification(
+                    'error',
+                    'Send Failed!',
+                    'Failed to send message. Please try again or contact me directly via Instagram.'
+                );
                 console.error('EmailJS Error:', error);
             })
             .finally(function() {
@@ -895,6 +974,37 @@ if (contactForm) {
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
             });
     });
+}
+
+function showNotification(type, title, message) {
+    const popup = document.getElementById('notificationPopup');
+    const icon = document.getElementById('notificationIcon');
+    const titleElement = document.getElementById('notificationTitle');
+    const textElement = document.getElementById('notificationText');
+    
+    if (type === 'success') {
+        icon.className = 'notification-icon';
+        icon.innerHTML = '<i class="fas fa-check-circle"></i>';
+    } else if (type === 'error') {
+        icon.className = 'notification-icon error';
+        icon.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+    }
+    
+    titleElement.textContent = title;
+    textElement.textContent = message;
+    
+    popup.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => {
+        closeNotification();
+    }, 5000);
+}
+
+function closeNotification() {
+    const popup = document.getElementById('notificationPopup');
+    popup.classList.remove('show');
+    document.body.style.overflow = '';
 }
 
 const commentForm = document.getElementById('commentForm');
@@ -982,41 +1092,155 @@ if (commentForm) {
     commentForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        console.log('=== Comment Form Submitted ===');
+        
+        if (!canPostComment()) {
+            const timeLeft = getTimeUntilNextComment();
+            console.log('Rate limit reached. Time left:', timeLeft);
+            showNotification(
+                'error',
+                'Comment Limit Reached!',
+                `You can only post one comment per day. Please try again in ${timeLeft}.`
+            );
+            return;
+        }
+        
         const name = document.getElementById('commentName').value.trim();
         const message = document.getElementById('commentMessage').value.trim();
         
+        console.log('Form data:', { name, messageLength: message.length });
+        
         if (!name || !message) {
-            alert('Please fill in all required fields!');
+            console.log('Validation failed: Empty fields');
+            showNotification(
+                'error',
+                'Incomplete Form!',
+                'Please fill in all required fields (Name and Message).'
+            );
+            return;
+        }
+        
+        if (name.length < 3) {
+            console.log('Validation failed: Name too short');
+            showNotification(
+                'error',
+                'Invalid Name!',
+                'Name must be at least 3 characters long.'
+            );
+            return;
+        }
+        
+        if (message.length < 10) {
+            console.log('Validation failed: Message too short');
+            showNotification(
+                'error',
+                'Message Too Short!',
+                'Message must be at least 10 characters long.'
+            );
             return;
         }
         
         const submitBtn = commentForm.querySelector('.btn-submit');
+        
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
         
+        let firebaseSuccess = false;
+        
         try {
-            let photoURL = null;
-            
+            console.log('Preparing comment data...');
             const timestamp = Date.now();
             
             const newComment = {
                 name: name,
                 message: message,
-                photoURL: photoURL,
+                photoURL: null,
                 timestamp: timestamp,
                 date: new Date(timestamp).toISOString()
             };
             
-            await commentsRef.push(newComment);
+            console.log('Pushing to Firebase...');
             
+            const result = await commentsRef.push(newComment);
+            
+            console.log('Firebase push successful!', result.key);
+            firebaseSuccess = true;
+            
+            console.log('Saving comment time...');
+            saveCommentTime();
+            
+            console.log('Resetting form...');
             commentForm.reset();
             
+            console.log('Showing success notification...');
+            showNotification(
+                'success',
+                'Comment Posted!',
+                'Your comment has been posted successfully. Thank you for your feedback!'
+            );
+            
+            console.log('=== Comment Posted Successfully ===');
+            
         } catch (error) {
-            console.error('Error posting comment:', error);
-            alert('Failed to post comment. Please try again.');
+            console.error('=== ERROR in Comment Submission ===');
+            console.error('Error details:', error);
+            console.error('Firebase success before error:', firebaseSuccess);
+            
+            if (firebaseSuccess) {
+                console.log('Firebase was successful, but post-processing failed');
+                showNotification(
+                    'success',
+                    'Comment Posted!',
+                    'Your comment has been posted successfully!'
+                );
+            } else {
+                let errorMessage = 'Failed to post comment. Please try again later.';
+                
+                if (error.code === 'PERMISSION_DENIED') {
+                    errorMessage = 'Permission denied. Please check Firebase rules.';
+                } else if (error.message && error.message.includes('network')) {
+                    errorMessage = 'Network error. Please check your internet connection.';
+                }
+                
+                showNotification(
+                    'error',
+                    'Post Failed!',
+                    errorMessage
+                );
+            }
         } finally {
+            console.log('Restoring button state...');
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Post Comment';
+        }
+    });
+    
+    window.addEventListener('DOMContentLoaded', function() {
+        if (!canPostComment()) {
+            const submitBtn = commentForm.querySelector('.btn-submit');
+            const timeLeft = getTimeUntilNextComment();
+            
+            if (submitBtn && timeLeft) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<i class="fas fa-clock"></i> Available in ${timeLeft}`;
+                submitBtn.style.opacity = '0.6';
+                submitBtn.style.cursor = 'not-allowed';
+                
+                const updateInterval = setInterval(() => {
+                    if (canPostComment()) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Post Comment';
+                        submitBtn.style.opacity = '1';
+                        submitBtn.style.cursor = 'pointer';
+                        clearInterval(updateInterval);
+                    } else {
+                        const newTimeLeft = getTimeUntilNextComment();
+                        if (newTimeLeft) {
+                            submitBtn.innerHTML = `<i class="fas fa-clock"></i> Available in ${newTimeLeft}`;
+                        }
+                    }
+                }, 60000);
+            }
         }
     });
 }

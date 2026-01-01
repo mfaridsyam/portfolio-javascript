@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "m-farid-syam"
-  }
+  },
+  "targets": {
+    "m-farid-syam": {
+      "hosting": {
+        "faridsyam": [
+          "faridsyam"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
