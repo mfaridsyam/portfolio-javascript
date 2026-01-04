@@ -309,6 +309,24 @@ body:not(.dark-mode) .theme-toggle {
     border: 2px solid #d0d0d0;
 }
 
+body:not(.dark-mode) .burger-menu span {
+    background: #000000;
+}
+
+body.dark-mode .burger-menu span {
+    background: #ffffff;
+}
+
+body:not(.dark-mode) .burger-menu:hover span,
+body:not(.dark-mode) .burger-menu.active span {
+    background: #000000;
+}
+
+body.dark-mode .burger-menu:hover span,
+body.dark-mode .burger-menu.active span {
+    background: #ffffff;
+}
+
 body.dark-mode .theme-toggle {
     background: #1a1a1a;
     border: 2px solid #808080;
@@ -405,7 +423,6 @@ body.dark-mode .theme-toggle i {
 .burger-menu span {
     width: 25px;
     height: 3px;
-    background: var(--text-primary);
     border-radius: 3px;
     transition: all 0.3s ease;
 }
@@ -419,7 +436,7 @@ body.dark-mode .theme-toggle i {
 }
 
 .burger-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
+    transform: rotate(-45deg) translate(3.5px, -3.5px);
 }
 
 .burger-menu:hover span {
@@ -433,7 +450,7 @@ body.dark-mode .theme-toggle i {
     width: 70%;
     max-width: 300px;
     height: 100vh;
-    background: rgba(var(--accent-color-rgb), 0.95);
+    background: white;
     backdrop-filter: blur(20px);
     z-index: 999;
     transition: right 0.4s ease;
@@ -441,7 +458,7 @@ body.dark-mode .theme-toggle i {
 }
 
 body.dark-mode .mobile-menu {
-    background: rgba(10, 10, 10, 0.95);
+    background: black;
     border-left: 1px solid var(--border-color);
 }
 
