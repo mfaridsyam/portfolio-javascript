@@ -294,42 +294,66 @@ body.dark-mode .logo .logo-dark {
 
 .theme-toggle {
     position: relative;
-    width: 45px;
-    height: 45px;
-    background: var(--bg-card);
-    border: 2px solid var(--border-color);
+    width: 60px;
+    height: 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-left: auto;
+    margin-right: 2rem;
+    overflow: hidden;
+}
+
+body:not(.dark-mode) .theme-toggle {
+    background: #ffffff;
+    border: 2px solid #d0d0d0;
+}
+
+body.dark-mode .theme-toggle {
+    background: #1a1a1a;
+    border: 2px solid #808080;
+}
+
+.theme-toggle i {
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-left: auto;
-    margin-right: 2rem;
-}
-
-.theme-toggle:hover {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    transform: rotate(20deg) scale(1.1);
-}
-
-.theme-toggle i {
-    font-size: 1.2rem;
-    color: var(--accent-color);
-    transition: all 0.3s ease;
-}
-
-.theme-toggle:hover i {
-    color: var(--bg-primary);
-}
-
-body.dark-mode .theme-toggle i {
-    transform: rotate(0deg);
+    font-size: 0.7rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 body:not(.dark-mode) .theme-toggle i {
-    transform: rotate(-20deg);
+    left: 3px;
+    background: #2a2a2a;
+    color: #ffffff;
+}
+
+body.dark-mode .theme-toggle i {
+    left: calc(100% - 25px);
+    background: #ffffff;
+    color: #1a1a1a;
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.theme-toggle:hover i {
+    box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.4);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 .nav-links {
@@ -2564,6 +2588,23 @@ body.dark-mode .footer-bottom p {
 
     nav {
         padding: 0.8rem 6%;
+    }
+    
+    .theme-toggle {
+        width: 50px;
+        height: 26px;
+        margin-right: 1rem;
+    }
+    
+    .theme-toggle i {
+        width: 18px;
+        height: 18px;
+        font-size: 0.6rem;
+        left: 2px;
+    }
+    
+    body.dark-mode .theme-toggle i {
+        left: calc(100% - 20px);
     }
     
     .nav-links {

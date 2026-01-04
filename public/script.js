@@ -1176,7 +1176,7 @@ if (commentForm) {
             showNotification(
                 'success',
                 'Comment Posted!',
-                'Your comment has been posted successfully. Thank you for your feedback!'
+                'Your comment has been posted successfully.'
             );
             
             console.log('=== Comment Posted Successfully ===');
