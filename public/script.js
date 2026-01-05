@@ -48,10 +48,10 @@ function toggleTheme() {
     body.classList.toggle('dark-mode');
     
     if (body.classList.contains('dark-mode')) {
-        themeIcon.className = 'fas fa-sun';
+        themeIcon.className = 'fas fa-moon';
         localStorage.setItem('theme', 'dark');
     } else {
-        themeIcon.className = 'fas fa-moon';
+        themeIcon.className = 'fas fa-sun';
         localStorage.setItem('theme', 'light');
     }
 }
@@ -63,10 +63,10 @@ function loadTheme() {
     
     if (savedTheme === 'light') {
         body.classList.remove('dark-mode');
-        if (themeIcon) themeIcon.className = 'fas fa-moon';
+        if (themeIcon) themeIcon.className = 'fas fa-sun';
     } else {
         body.classList.add('dark-mode');
-        if (themeIcon) themeIcon.className = 'fas fa-sun';
+        if (themeIcon) themeIcon.className = 'fas fa-moon';
         if (!savedTheme) {
             localStorage.setItem('theme', 'dark');
         }
