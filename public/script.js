@@ -41,6 +41,22 @@ let showAllProjects = false;
 let projectsAnimated = false;
 let portfolioObserved = false;
 
+let firebaseLoaded = false;
+let commentsRef = null;
+
+function waitForFirebase() {
+    return new Promise((resolve) => {
+        const checkInterval = setInterval(() => {
+            if (window.firebaseDb && window.firebaseRef) {
+                clearInterval(checkInterval);
+                firebaseLoaded = true;
+                commentsRef = window.firebaseRef(window.firebaseDb, 'comments');
+                resolve();
+            }
+        }, 100);
+    });
+}
+
 function toggleTheme() {
     const body = document.body;
     const themeIcon = document.getElementById('themeIcon');
@@ -115,18 +131,20 @@ function showLoadingScreen() {
     }, 1500);
 }
 
-function initializeAnimations() {
+async function initializeAnimations() {
     const heroContent = document.querySelector('.hero-content');
     const heroImage = document.querySelector('.hero-image');
     const scrollIndicator = document.querySelector('.scroll-indicator');
     
-    const lottieAnimation = lottie.loadAnimation({
-        container: document.getElementById('lottie-animation'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'assets/foto/uisvg.json'
-    });
+    if (typeof lottie !== 'undefined') {
+        const lottieAnimation = lottie.loadAnimation({
+            container: document.getElementById('lottie-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'assets/foto/uisvg.json'
+        });
+    }
     
     setTimeout(() => {
         heroContent.classList.add('animate-in-left');
@@ -140,6 +158,7 @@ function initializeAnimations() {
         scrollIndicator.classList.add('animate-in-bottom');
     }, 600);
     
+    await waitForFirebase();
     loadComments();
     
     const sections = document.querySelectorAll('section:not(#home)');
@@ -152,7 +171,6 @@ function initializeAnimations() {
 function saveCommentTime() {
     try {
         localStorage.setItem('lastCommentTime', Date.now().toString());
-        console.log('Comment time saved:', Date.now());
     } catch (error) {
         console.error('Error saving comment time:', error);
     }
@@ -206,8 +224,6 @@ function getTimeUntilNextComment() {
         return null;
     }
 }
-
-
 
 const audio = document.getElementById("audioPlayer");
 const musicTitleSimple = document.getElementById("musicTitleSimple");
@@ -353,8 +369,8 @@ function handleMusicPlayerVisibility() {
     }
 }
 
-window.addEventListener('scroll', handleMusicPlayerVisibility);
-window.addEventListener('resize', handleMusicPlayerVisibility);
+window.addEventListener('scroll', handleMusicPlayerVisibility, { passive: true });
+window.addEventListener('resize', handleMusicPlayerVisibility, { passive: true });
 
 function toggleBurgerMenu() {
     const mobileMenu = document.getElementById('mobileMenu');
@@ -400,7 +416,7 @@ function setActiveNav() {
     });
 }
 
-window.addEventListener('scroll', setActiveNav);
+window.addEventListener('scroll', setActiveNav, { passive: true });
 
 function scrollToSection(id) {
     const section = document.getElementById(id);
@@ -1010,7 +1026,6 @@ function closeNotification() {
 const commentForm = document.getElementById('commentForm');
 const commentsList = document.getElementById('commentsList');
 const commentCount = document.getElementById('commentCount');
-const commentsRef = database.ref('comments');
 
 function formatDate(timestamp) {
     const now = Date.now();
@@ -1032,12 +1047,15 @@ function formatDate(timestamp) {
 }
 
 function updateCommentCount() {
-    commentsRef.once('value', (snapshot) => {
-        const count = snapshot.numChildren();
+    if (!commentsRef) return;
+    
+    const onceQuery = window.firebaseQuery(commentsRef);
+    window.firebaseOnValue(onceQuery, (snapshot) => {
+        const count = snapshot.size || 0;
         if (commentCount) {
             commentCount.textContent = count + 1;
         }
-    });
+    }, { onlyOnce: true });
 }
 
 function renderComment(commentId, commentData) {
@@ -1066,9 +1084,14 @@ function renderComment(commentId, commentData) {
 }
 
 function loadComments() {
-    if (!commentsList) return;
+    if (!commentsList || !commentsRef) return;
     
-    commentsRef.orderByChild('timestamp').on('value', (snapshot) => {
+    const commentsQuery = window.firebaseQuery(
+        commentsRef, 
+        window.firebaseOrderByChild('timestamp')
+    );
+    
+    window.firebaseOnValue(commentsQuery, (snapshot) => {
         commentsList.innerHTML = '';
         
         const comments = [];
@@ -1092,11 +1115,8 @@ if (commentForm) {
     commentForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        console.log('=== Comment Form Submitted ===');
-        
         if (!canPostComment()) {
             const timeLeft = getTimeUntilNextComment();
-            console.log('Rate limit reached. Time left:', timeLeft);
             showNotification(
                 'error',
                 'Comment Limit Reached!',
@@ -1108,10 +1128,7 @@ if (commentForm) {
         const name = document.getElementById('commentName').value.trim();
         const message = document.getElementById('commentMessage').value.trim();
         
-        console.log('Form data:', { name, messageLength: message.length });
-        
         if (!name || !message) {
-            console.log('Validation failed: Empty fields');
             showNotification(
                 'error',
                 'Incomplete Form!',
@@ -1121,7 +1138,6 @@ if (commentForm) {
         }
         
         if (name.length < 3) {
-            console.log('Validation failed: Name too short');
             showNotification(
                 'error',
                 'Invalid Name!',
@@ -1131,7 +1147,6 @@ if (commentForm) {
         }
         
         if (message.length < 10) {
-            console.log('Validation failed: Message too short');
             showNotification(
                 'error',
                 'Message Too Short!',
@@ -1145,10 +1160,9 @@ if (commentForm) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
         
-        let firebaseSuccess = false;
-        
         try {
-            console.log('Preparing comment data...');
+            await waitForFirebase();
+            
             const timestamp = Date.now();
             
             const newComment = {
@@ -1159,57 +1173,34 @@ if (commentForm) {
                 date: new Date(timestamp).toISOString()
             };
             
-            console.log('Pushing to Firebase...');
+            await window.firebasePush(commentsRef, newComment);
             
-            const result = await commentsRef.push(newComment);
-            
-            console.log('Firebase push successful!', result.key);
-            firebaseSuccess = true;
-            
-            console.log('Saving comment time...');
             saveCommentTime();
-            
-            console.log('Resetting form...');
             commentForm.reset();
             
-            console.log('Showing success notification...');
             showNotification(
                 'success',
                 'Comment Posted!',
                 'Your comment has been posted successfully.'
             );
             
-            console.log('=== Comment Posted Successfully ===');
-            
         } catch (error) {
-            console.error('=== ERROR in Comment Submission ===');
-            console.error('Error details:', error);
-            console.error('Firebase success before error:', firebaseSuccess);
+            console.error('Error posting comment:', error);
             
-            if (firebaseSuccess) {
-                console.log('Firebase was successful, but post-processing failed');
-                showNotification(
-                    'success',
-                    'Comment Posted!',
-                    'Your comment has been posted successfully!'
-                );
-            } else {
-                let errorMessage = 'Failed to post comment. Please try again later.';
-                
-                if (error.code === 'PERMISSION_DENIED') {
-                    errorMessage = 'Permission denied. Please check Firebase rules.';
-                } else if (error.message && error.message.includes('network')) {
-                    errorMessage = 'Network error. Please check your internet connection.';
-                }
-                
-                showNotification(
-                    'error',
-                    'Post Failed!',
-                    errorMessage
-                );
+            let errorMessage = 'Failed to post comment. Please try again later.';
+            
+            if (error.code === 'PERMISSION_DENIED') {
+                errorMessage = 'Permission denied. Please check Firebase rules.';
+            } else if (error.message && error.message.includes('network')) {
+                errorMessage = 'Network error. Please check your internet connection.';
             }
+            
+            showNotification(
+                'error',
+                'Post Failed!',
+                errorMessage
+            );
         } finally {
-            console.log('Restoring button state...');
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Post Comment';
         }
@@ -1338,7 +1329,7 @@ function animatePortfolioSection() {
 function animateAboutText() {
     const name = document.getElementById('aboutName');
     
-    if (name.hasAttribute('data-animated')) return;
+    if (!name || name.hasAttribute('data-animated')) return;
     
     name.setAttribute('data-animated', 'true');
     
