@@ -894,9 +894,9 @@ function renderProjects() {
             seeMoreContainer.style.display = 'flex';
             
             if (showAllProjects) {
-                btnSeeMore.innerHTML = '<span>Show Less</span><i class="fas fa-arrow-up"></i>';
+                btnSeeMore.innerHTML = '<span>Show Less Projects</span>';
             } else {
-                btnSeeMore.innerHTML = '<span>See More Projects</span><i class="fas fa-arrow-right"></i>';
+                btnSeeMore.innerHTML = '<span>See More Projects</span>';
             }
         }
         

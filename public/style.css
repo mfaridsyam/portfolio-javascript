@@ -363,7 +363,6 @@ body.dark-mode .theme-toggle i {
 
 .theme-toggle:hover {
     border-color: var(--accent-color);
-    transform: scale(1.05);
 }
 
 .theme-toggle:hover i {
@@ -640,7 +639,6 @@ body.dark-mode .mobile-menu {
     background: rgba(var(--accent-color-rgb), 0.1);
     border-color: var(--accent-color);
     color: var(--accent-color);
-    transform: translateY(-2px);
 }
 
 .tech-badge i {
@@ -678,8 +676,8 @@ body.dark-mode .mobile-menu {
 
 .btn-port:hover {
     background: var(--accent-hover);
-    transform: translateY(-2px);
     box-shadow: 0 4px 12px var(--shadow-color);
+    transform: translateY(-1px);
 }
 
 .profile-img-wrapper {
@@ -888,7 +886,6 @@ body.dark-mode .mobile-menu {
 .btn-secondary:hover {
     border-color: var(--accent-color);
     background: rgba(var(--accent-color-rgb), 0.1);
-    transform: translateY(-2px);
 }
 
 .about-stats-wrapper {
@@ -934,7 +931,6 @@ body.dark-mode .mobile-menu {
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
     border-color: var(--accent-color);
     box-shadow: 0 10px 30px var(--shadow-color);
 }
@@ -1139,7 +1135,6 @@ body.dark-mode .mobile-menu {
     background: rgba(var(--accent-color-rgb), 0.1);
     border-color: rgba(var(--accent-color-rgb), 0.3);
     color: var(--accent-color);
-    transform: translateY(-2px);
     box-shadow: 0 4px 15px var(--shadow-color);
 }
 
@@ -1245,7 +1240,6 @@ body.dark-mode .mobile-menu {
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
     border-color: var(--accent-color);
     box-shadow: 0 20px 50px var(--shadow-color);
 }
@@ -1395,7 +1389,6 @@ body.dark-mode .mobile-menu {
 }
 
 .certificate-card:hover {
-    transform: translateY(-10px);
     box-shadow: 0 20px 50px var(--shadow-color);
     border: solid 1px var(--accent-color);
 }
@@ -1838,7 +1831,6 @@ body.dark-mode .techstack-icon .icon-dark {
     outline: none;
     border-color: var(--accent-color);
     background: var(--bg-card-hover);
-    transform: translateY(-2px);
 }
 
 .contact-form input::placeholder,
@@ -2135,7 +2127,6 @@ body.dark-mode .techstack-icon .icon-dark {
     outline: none;
     border-color: var(--accent-color);
     background: var(--bg-card-hover);
-    transform: translateY(-2px);
 }
 
 .disabled-upload {
@@ -2364,8 +2355,8 @@ body.dark-mode .footer-bottom p {
 }
 
 .music-player-simple:hover {
-    transform: translateY(-3px);
     box-shadow: 0 15px 50px rgba(var(--accent-color-rgb), 0.4);
+    transform: translateY(-2px);
 }
 
 .music-icon-simple {
@@ -2388,7 +2379,6 @@ body.dark-mode .footer-bottom p {
 
 .music-player-simple:hover .music-icon-simple {
     background: var(--accent-color);
-    transform: scale(1.1);
 }
 
 .music-player-simple:hover .music-icon-simple i {
