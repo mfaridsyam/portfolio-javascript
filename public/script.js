@@ -548,6 +548,12 @@ if (techstackDisplay) {
 
 const certificates = [
     {
+        title: "Figma for UI/UX Design",
+        issuer: "MySkill - Skill Specialization",
+        date: "2026",
+        images: ["assets/certificates/figmaforui-uxdesign.jpg"]
+    },
+    {
         title: "Fundamental UI Design",
         issuer: "Coding Studio",
         date: "2025",
