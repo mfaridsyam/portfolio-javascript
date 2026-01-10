@@ -761,49 +761,106 @@ const projects = [
         title: "Personal Portfolio",
         desc: "A professional portfolio website designed and developed to showcase my creative profile, technical skills, and latest projects.",
         image: "assets/thumbproject/portfolio.png",
-        badges: ["UI/UX Design", "Web Development"]
+        badges: ["UI/UX Design", "Web Development"],
+        role: "UI/UX Designer & Web Developer",
+        images: [
+            "assets/modalproject/porto1.png",
+            "assets/modalproject/porto2.png",
+            "assets/modalproject/porto3.png",
+            "assets/modalproject/porto4.png",
+            "assets/modalproject/porto5.png",
+            "assets/modalproject/porto6.png",
+            "assets/modalproject/porto7.png",
+            "assets/modalproject/porto8.png",
+            "assets/modalproject/porto9.png"
+        ]
     },
     {
         title: "Kirke Beta",
         desc: "A marketplace platform for digital illustrators to showcase their work and manage artwork sales through a streamlined interface.",
         image: "assets/thumbproject/kirke.png",
-        badges: ["UI/UX Design"]
+        badges: ["UI/UX Design"],
+        role: "UI/UX Designer",
+        images: [
+            "assets/modalproject/comingsoon.png"
+        ]
     },
     {
         title: "Oura Store",
         desc: "A specialized e-commerce web design for game currency top-ups, featuring a fast and secure flow for purchasing in-game diamonds.",
         image: "assets/thumbproject/oura.png",
-        badges: ["UI/UX Design"]
+        badges: ["UI/UX Design"],
+        role: "UI/UX Designer",
+        images: [
+            "assets/modalproject/comingsoon.png"
+        ]
     },
     {
         title: "LaundryXpress",
         desc: "A zone-based web platform for local laundry services that allows users to check regional pricing and book laundry packages.",
         image: "assets/thumbproject/laundry.png",
-        badges: ["UI/UX Design"]
+        badges: ["UI/UX Design"],
+        role: "UI/UX Designer",
+        images: [
+            "assets/modalproject/comingsoon.png"
+        ]
     },
     {
         title: "Internet Rakyat",
         desc: "The cheapest internet service provider website with speeds comparable to its more expensive competitors.",
         image: "assets/thumbproject/internetrakyat.png",
-        badges: ["UI/UX Design"]
+        badges: ["UI/UX Design"],
+        role: "UI/UX Designer",
+        images: [
+            "assets/modalproject/internet1.png",
+            "assets/modalproject/internet2.png",
+            "assets/modalproject/internet3.png",
+            "assets/modalproject/internet4.png",
+            "assets/modalproject/internet5.png",
+            "assets/modalproject/internet6.png",
+            "assets/modalproject/internet7.png",
+            "assets/modalproject/internet8.png",
+            "assets/modalproject/internet9.png",
+            "assets/modalproject/internet10.png",
+            "assets/modalproject/internet11.png"
+        ]
     },
     {
         title: "Rimba Planner",
         desc: "A consultation-based web platform for mountain trekking that provides trip planning services and travel booking for hikers.",
         image: "assets/thumbproject/rimba.png",
-        badges: ["UI/UX Design"]
+        badges: ["UI/UX Design"],
+        role: "UI/UX Designer",
+        images: [
+            "assets/modalproject/rimba1.png",
+            "assets/modalproject/rimba2.png",
+            "assets/modalproject/rimba3.png",
+            "assets/modalproject/rimba4.png",
+            "assets/modalproject/rimba5.png",
+            "assets/modalproject/rimba6.png",
+            "assets/modalproject/rimba7.png",
+            "assets/modalproject/rimba8.png"
+        ]
     },
     {
         title: "Smart Queue",
         desc: "A multi-purpose queue system featuring real-time tracking, administrative controls, and a customer feedback management portal.",
         image: "assets/thumbproject/queue.png",
-        badges: ["UI/UX Design", "Web Development"]
+        badges: ["UI/UX Design", "Web Development"],
+        role: "UI/UX Designer & Web Developer",
+        images: [
+            "assets/modalproject/comingsoon.png"
+        ]
     },
     {
         title: "Wind Monitor",
         desc: "An Internet of Things-based weather monitoring website designed to collect environmental data in real time and serve as an early warning system for natural disasters.",
         image: "assets/thumbproject/iot.png",
-        badges: ["UI/UX Design", "Web Development"]
+        badges: ["UI/UX Design", "Web Development"],
+        role: "UI/UX Designer & Web Developer",
+        images: [
+            "assets/modalproject/comingsoon.png"
+        ]
     }
 ];
 
@@ -827,6 +884,7 @@ function renderProjects() {
             card.setAttribute('data-index', i);
             card.style.opacity = '1';
             card.style.transform = 'translate(0, 0)';
+            card.onclick = () => openProjectModal(i);
             
             const badgesHTML = project.badges.map(badge => 
                 `<span class="project-badge">${badge}</span>`
@@ -856,6 +914,7 @@ function renderProjects() {
             const card = document.createElement("div");
             card.className = "project-card";
             card.setAttribute('data-index', index);
+            card.onclick = () => openProjectModal(index);
             
             if (isSmallMobile || projectsAnimated || portfolioObserved) {
                 card.style.opacity = '1';
@@ -907,6 +966,90 @@ function renderProjects() {
         }
     }
 }
+
+function openProjectModal(index) {
+    const project = projects[index];
+    const modal = document.getElementById('projectModal');
+    const modalContent = modal.querySelector('.modal-content');
+    
+    const badgesHTML = project.badges.map(badge => 
+        `<span class="project-badge">${badge}</span>`
+    ).join('');
+    
+    const imagesHTML = project.images.map(imgPath => 
+        `<img src="${imgPath}" alt="${project.title}" loading="lazy">`
+    ).join('');
+    
+    modalContent.innerHTML = `
+        <div class="project-modal-sidebar">
+            <h2>${project.title}</h2>
+            
+            <div class="project-modal-meta">
+                <span class="project-modal-role">My role. ${project.role}</span>
+            </div>
+            
+            <div class="project-modal-section">
+                <h3>Project description.</h3>
+                <p>${project.desc}</p>
+            </div>
+            
+            <div class="project-modal-section">
+                <h3>Skills and deliverables</h3>
+                <div class="project-modal-badges">
+                    ${badgesHTML}
+                </div>
+            </div>
+            
+            <div class="project-modal-section">
+                <h3>Published on Dec 25, 2025</h3>
+            </div>
+        </div>
+        
+        <div class="project-modal-main">
+            <div class="project-modal-images">
+                ${imagesHTML}
+            </div>
+        </div>
+    `;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('projectModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function scrollToPortfolioSection(section) {
+    const portfolioSection = document.getElementById('portfolio');
+    if (portfolioSection) {
+        portfolioSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        setTimeout(() => {
+            if (section === 'projects') {
+                switchTab('projects');
+            } else if (section === 'certificates') {
+                switchTab('certificates');
+            }
+        }, 800);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const statCards = document.querySelectorAll('.stat-card');
+    
+    statCards.forEach((card, index) => {
+        card.addEventListener('click', function() {
+            if (index === 0) {
+                scrollToPortfolioSection('projects');
+            } else if (index === 1) {
+                scrollToPortfolioSection('certificates');
+            }
+        });
+    });
+});
 
 function toggleShowAllProjects() {
     showAllProjects = !showAllProjects;
