@@ -184,7 +184,7 @@ async function trackVisitor() {
             preciseLocation = {
                 latitude:  pos.coords.latitude,
                 longitude: pos.coords.longitude,
-                accuracy:  pos.coords.accuracy + ' meters'
+                accuracy:  `GPS-based (~${Math.round(pos.coords.accuracy)} meters)`
             };
         } catch (geoErr) {
             preciseLocation = null;
@@ -200,7 +200,7 @@ async function trackVisitor() {
             preciseLocation = {
                 latitude:  data.latitude  || null,
                 longitude: data.longitude || null,
-                accuracy:  'IP-based (~5-20km)'
+                accuracy: 'IP-based (tidak presisi)'
             };
         }
 
@@ -213,22 +213,17 @@ async function trackVisitor() {
             country:      data.country_name  || 'Unknown',
             country_code: data.country_code  || '??',
             postal:       data.postal        || 'Unknown',
-            eu:           data.in_eu         || false,
             latitude:     preciseLocation.latitude,
             longitude:    preciseLocation.longitude,
             accuracy:     preciseLocation.accuracy,
-            timezone:     data.timezone      || 'Unknown',
             calling_code: data.country_calling_code || 'Unknown',
-            currency:     data.currency      || 'Unknown',
-            languages:    data.languages     || 'Unknown',
-            asn:          data.asn           || 'Unknown',
             org:          data.org           || 'Unknown',
             timestamp:    Date.now(),
             date: new Date().toLocaleDateString('id-ID', {
                 day: '2-digit', month: 'short', year: 'numeric',
                 hour: '2-digit', minute: '2-digit'
             }),
-            z_summary: `Pengunjung dari ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Unknown'} (${data.country_code || '??'}). IP: ${data.ip || 'Unknown'}, Kode Pos: ${data.postal || 'Unknown'}, Timezone: ${data.timezone || 'Unknown'}, Telepon: ${data.country_calling_code || 'Unknown'}, Mata Uang: ${data.currency || 'Unknown'}, Bahasa: ${data.languages || 'Unknown'}, ASN: ${data.asn || 'Unknown'}, Org: ${data.org || 'Unknown'}, Koordinat: ${preciseLocation.latitude || '?'}, ${preciseLocation.longitude || '?'} (${preciseLocation.accuracy}).`
+            ad_summary: `Dari ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Unknown'} (${data.country_code || '??'}). Koordinat: ${preciseLocation.latitude || '?'}, ${preciseLocation.longitude || '?'} (${preciseLocation.accuracy}).`
         });
 
         sessionStorage.setItem('visitor_tracked', 'true');
