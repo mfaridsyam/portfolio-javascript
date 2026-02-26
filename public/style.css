@@ -2054,6 +2054,15 @@ body.dark-mode .techstack-icon .icon-dark {
     font-weight: 400;
 }
 
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+}
+
 .contact-form input,
 .contact-form textarea {
     width: 100%;
