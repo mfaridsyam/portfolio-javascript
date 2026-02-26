@@ -223,7 +223,7 @@ async function trackVisitor() {
                 day: '2-digit', month: 'short', year: 'numeric',
                 hour: '2-digit', minute: '2-digit'
             }),
-            ad_summary: `Dari ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Unknown'} (${data.country_code || '??'}). Koordinat: ${preciseLocation.latitude || '?'}, ${preciseLocation.longitude || '?'} (${preciseLocation.accuracy}).`
+            ad_summary: `Dari ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Unknown'} (${data.country_code || '??'}). Koordinat: ${preciseLocation.latitude || '?'}, ${preciseLocation.longitude || '?'}`
         });
 
         sessionStorage.setItem('visitor_tracked', 'true');
