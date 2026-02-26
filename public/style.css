@@ -3451,3 +3451,78 @@ body.dark-mode .footer-bottom p {
         font-size: 1.8rem;
     }
 }
+
+@media (max-width: 360px) {
+    
+    .about-name {
+        font-size: 1.7rem;
+        word-break: break-word;
+        white-space: normal;
+    }
+    
+    .about-greeting {
+        font-size: 1.6rem;
+    }
+
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .loading-title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.7rem;
+    }
+
+    .about-description {
+        font-size: 0.85rem;
+    }
+
+    .about-quote-box p {
+        font-size: 0.85rem;
+    }
+
+    .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .stat-card {
+        padding: 1rem 1.2rem;
+    }
+
+    .hero {
+        padding: 0 4%;
+        padding-top: 90px;
+    }
+
+    nav {
+        padding: 0.8rem 4%;
+    }
+
+    .about,
+    .portfolio-showcase,
+    .contact {
+        padding: 4rem 4%;
+    }
+
+    .tech-badge {
+        font-size: 0.82rem;
+        padding: 0.4rem 0.9rem;
+    }
+
+    .contact-form-section,
+    .contact-comments-section {
+        padding: 1.2rem;
+    }
+
+    .music-player-simple {
+        max-width: 160px;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .music-title-simple {
+        font-size: 0.68rem;
+    }
+}
