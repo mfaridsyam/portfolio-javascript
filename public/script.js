@@ -160,7 +160,7 @@ async function initializeAnimations() {
     
     await waitForFirebase();
     loadComments();
-    trackVisitor(); // ← Visitor tracking dipanggil di sini
+    trackVisitor();
 
     const sections = document.querySelectorAll('section:not(#home)');
     sections.forEach(section => {
@@ -169,47 +169,73 @@ async function initializeAnimations() {
     });
 }
 
-// ===== VISITOR TRACKING =====
 async function trackVisitor() {
-    // Cek apakah sudah di-track di session ini (biar tidak dobel tiap refresh cepat)
     if (sessionStorage.getItem('visitor_tracked')) return;
 
     try {
-        // Fetch data lokasi berdasarkan IP — gratis 1000 req/hari, no API key
+        let preciseLocation = {};
+        try {
+            const pos = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject, {
+                    timeout: 5000,
+                    maximumAge: 0
+                });
+            });
+            preciseLocation = {
+                latitude:  pos.coords.latitude,
+                longitude: pos.coords.longitude,
+                accuracy:  pos.coords.accuracy + ' meters'
+            };
+        } catch (geoErr) {
+            preciseLocation = null;
+        }
+
         const res = await fetch('https://ipapi.co/json/');
         if (!res.ok) return;
 
         const data = await res.json();
-
-        // Jangan track jika response error dari ipapi
         if (data.error) return;
+
+        if (!preciseLocation) {
+            preciseLocation = {
+                latitude:  data.latitude  || null,
+                longitude: data.longitude || null,
+                accuracy:  'IP-based (~5-20km)'
+            };
+        }
 
         const visitorsRef = window.firebaseRef(window.firebaseDb, 'visitors');
 
         await window.firebasePush(visitorsRef, {
-            country:      data.country_name  || 'Unknown',
+            ip:           data.ip            || 'Unknown',
             city:         data.city          || 'Unknown',
             region:       data.region        || 'Unknown',
+            country:      data.country_name  || 'Unknown',
             country_code: data.country_code  || '??',
+            postal:       data.postal        || 'Unknown',
+            eu:           data.in_eu         || false,
+            latitude:     preciseLocation.latitude,
+            longitude:    preciseLocation.longitude,
+            accuracy:     preciseLocation.accuracy,
             timezone:     data.timezone      || 'Unknown',
+            calling_code: data.country_calling_code || 'Unknown',
+            currency:     data.currency      || 'Unknown',
+            languages:    data.languages     || 'Unknown',
+            asn:          data.asn           || 'Unknown',
+            org:          data.org           || 'Unknown',
             timestamp:    Date.now(),
             date: new Date().toLocaleDateString('id-ID', {
-                day:    '2-digit',
-                month:  'short',
-                year:   'numeric',
-                hour:   '2-digit',
-                minute: '2-digit'
-            })
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            }),
+            z_summary: `Pengunjung dari ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Unknown'} (${data.country_code || '??'}). IP: ${data.ip || 'Unknown'}, Kode Pos: ${data.postal || 'Unknown'}, Timezone: ${data.timezone || 'Unknown'}, Telepon: ${data.country_calling_code || 'Unknown'}, Mata Uang: ${data.currency || 'Unknown'}, Bahasa: ${data.languages || 'Unknown'}, ASN: ${data.asn || 'Unknown'}, Org: ${data.org || 'Unknown'}, Koordinat: ${preciseLocation.latitude || '?'}, ${preciseLocation.longitude || '?'} (${preciseLocation.accuracy}).`
         });
 
-        // Tandai sudah di-track supaya tidak dobel dalam 1 sesi
         sessionStorage.setItem('visitor_tracked', 'true');
 
     } catch (err) {
-        // Silent fail — jangan ganggu pengalaman user sama sekali
     }
 }
-// ===== END VISITOR TRACKING =====
 
 function saveCommentTime() {
     try {
@@ -1148,7 +1174,6 @@ if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Honeypot check
         const honeypot = document.getElementById('hp_contact');
         if (honeypot && honeypot.value !== '') {
             console.log('Bot detected on contact form');
@@ -1356,7 +1381,6 @@ if (commentForm) {
             return;
         }
         
-        // Honeypot check
         const honeypot = document.getElementById('hp_comment');
         if (honeypot && honeypot.value !== '') {
             console.log('Bot detected on comment form');
