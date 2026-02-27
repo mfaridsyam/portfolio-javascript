@@ -840,6 +840,16 @@ const projects = [
         ]
     },
     {
+        title: "FamilyTracer",
+        desc: "A real-time family location sharing PWA built with Firebase Realtime Database, featuring live GPS tracking, reverse geocoding, and room-based member management.",
+        image: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772234331/famtracer_njwwab.png",
+        badges: ["UI/UX Design", "Web Development"],
+        role: "UI/UX Designer & Web Developer",
+        images: [
+            "https://res.cloudinary.com/dnacoymkh/image/upload/v1772046221/comingsoon_ol3ycq.png"
+        ]
+    },
+    {
         title: "Kirke Beta",
         desc: "A marketplace platform for digital illustrators to showcase their work and manage artwork sales through a streamlined interface.",
         image: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772045900/kirke_useyxf.png",
