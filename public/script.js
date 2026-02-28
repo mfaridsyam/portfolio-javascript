@@ -840,9 +840,9 @@ const projects = [
         ]
     },
     {
-        title: "FamilyTracer",
-        desc: "A real-time family location sharing PWA built with Firebase Realtime Database, featuring live GPS tracking, reverse geocoding, and room-based member management.",
-        image: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772234331/famtracer_njwwab.png",
+        title: "TraceLink",
+        desc: "A real-time location sharing PWA with live GPS tracking, room-based groups, and Firebase sync — built for anyone to share their whereabouts instantly.",
+        image: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772294839/tracelink_valcit.png",
         badges: ["UI/UX Design", "Web Development"],
         role: "UI/UX Designer & Web Developer",
         images: [
