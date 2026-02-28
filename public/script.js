@@ -160,76 +160,12 @@ async function initializeAnimations() {
     
     await waitForFirebase();
     loadComments();
-    trackVisitor();
 
     const sections = document.querySelectorAll('section:not(#home)');
     sections.forEach(section => {
         section.classList.add('animate-section');
         observer.observe(section);
     });
-}
-
-async function trackVisitor() {
-    if (sessionStorage.getItem('visitor_tracked')) return;
-
-    try {
-        let preciseLocation = {};
-        try {
-            const pos = await new Promise((resolve, reject) => {
-                navigator.geolocation.getCurrentPosition(resolve, reject, {
-                    timeout: 5000,
-                    maximumAge: 0
-                });
-            });
-            preciseLocation = {
-                latitude:  pos.coords.latitude,
-                longitude: pos.coords.longitude,
-                accuracy:  `GPS-based (~${Math.round(pos.coords.accuracy)} meters)`
-            };
-        } catch (geoErr) {
-            preciseLocation = null;
-        }
-
-        const res = await fetch('https://ipapi.co/json/');
-        if (!res.ok) return;
-
-        const data = await res.json();
-        if (data.error) return;
-
-        if (!preciseLocation) {
-            preciseLocation = {
-                latitude:  data.latitude  || null,
-                longitude: data.longitude || null,
-                accuracy: 'IP-based (tidak presisi)'
-            };
-        }
-
-        const visitorsRef = window.firebaseRef(window.firebaseDb, 'visitors');
-
-        await window.firebasePush(visitorsRef, {
-            ip:           data.ip            || 'Unknown',
-            city:         data.city          || 'Unknown',
-            region:       data.region        || 'Unknown',
-            country:      data.country_name  || 'Unknown',
-            country_code: data.country_code  || '??',
-            postal:       data.postal        || 'Unknown',
-            latitude:     preciseLocation.latitude,
-            longitude:    preciseLocation.longitude,
-            accuracy:     preciseLocation.accuracy,
-            calling_code: data.country_calling_code || 'Unknown',
-            org:          data.org           || 'Unknown',
-            timestamp:    Date.now(),
-            date: new Date().toLocaleDateString('id-ID', {
-                day: '2-digit', month: 'short', year: 'numeric',
-                hour: '2-digit', minute: '2-digit'
-            }),
-            ad_summary: `Dari ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Unknown'} (${data.country_code || '??'}). Koordinat: ${preciseLocation.latitude || '?'}, ${preciseLocation.longitude || '?'}`
-        });
-
-        sessionStorage.setItem('visitor_tracked', 'true');
-
-    } catch (err) {
-    }
 }
 
 function saveCommentTime() {
@@ -1570,7 +1506,7 @@ function animateAboutText() {
     
     name.setAttribute('data-animated', 'true');
     
-    const nameText = "Muhammad Farid Syam";
+    const nameText = "Muhammad Farid Syam";
     
     name.innerHTML = '';
     
