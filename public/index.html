@@ -27,26 +27,26 @@
 </head>
 <body>
     <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <div class="loading-icons">
-                <div class="loading-icon">
-                    <i class="fab fa-figma"></i>
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
                 </div>
-                <div class="loading-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <div class="loading-icon">
-                    <i class="fab fa-js"></i>
-                </div>
+                <div class="terminal-title">portfolio.sh — bash</div>
+                <div class="terminal-spacer"></div>
             </div>
-            <h1 class="loading-title">
-                Turning Ideas<br>
-                <span class="loading-highlight">Into Reality</span>
-            </h1>
-            <div class="loading-url">
-                <i class="fas fa-globe"></i>
-                <span id="typedUrl"></span>
-                <span class="cursor-blink">|</span>
+            <div class="terminal-body">
+                <div class="terminal-line" id="tl-1"></div>
+                <div class="terminal-line" id="tl-2"></div>
+                <div class="terminal-line" id="tl-3"></div>
+                <div class="terminal-line" id="tl-4"></div>
+                <div class="terminal-line" id="tl-5"></div>
+                <div class="terminal-line" id="tl-6"></div>
+                <div class="terminal-line" id="tl-7"></div>
+                <div class="terminal-line" id="tl-8"></div>
+                <div class="terminal-cursor" id="terminalCursor">█</div>
             </div>
         </div>
     </div>
@@ -120,7 +120,7 @@
                     </div>
 
                     <div class="hero-buttons">
-                        <a href="#portfolio" onclick="scrollToSection('portfolio'); return false;" class="btn btn-port">Explore My Projects</a>
+                        <a href="#portfolio" onclick="scrollToPortfolioSection('projects'); return false;" class="btn btn-port">Explore My Projects</a>
                     </div>
                 </div>
             </div>
@@ -161,7 +161,7 @@
                         </div>
 
                         <div class="about-buttons">
-                            <a href="#portfolio" onclick="scrollToSection('portfolio'); return false;" class="btn-about btn-secondary">
+                            <a href="#portfolio" onclick="scrollToPortfolioSection('projects'); return false;" class="btn-about btn-secondary">
                                 <i class="fas fa-code"></i> View Projects
                             </a>
                         </div>
@@ -272,8 +272,8 @@
                     <p class="section-subtitle">Have a question? Send me a message, and I'll get back to you right away.</p>
                 </div>
 
-                <div class="contact-content">
-                    <div class="contact-form-section">
+                <div class="contact-content contact-content-single">
+                    <div class="contact-form-section contact-form-centered">
                         <h3 class="form-title">Contact</h3>
                         <p class="form-subtitle">Is there anything you want to discuss? Send me a message and let's talk.</p>
                         
@@ -298,75 +298,6 @@
                                 <i class="fas fa-paper-plane"></i> Send Message
                             </button>
                         </form>
-
-                        <!--<div class="contact-social">
-                            <h4>Connect With Me</h4>
-                            <div class="social-buttons">
-                                <a class="social-btn social-btn-full social-disabled">
-                                    <span>Let's Connect<br><small>on Social Media</small></span>
-                                </a>
-                                <div class="social-buttons-row">
-                                    <a href="https://instagram.com/mfaridsyam_" target="_blank" class="social-btn social-btn-half">
-                                        <i class="fab fa-instagram"></i>
-                                        <span>Instagram<br><small>@mfaridsyam_</small></span>
-                                    </a>
-                                    <a href="https://github.com/mfaridsyam" target="_blank" class="social-btn social-btn-half">
-                                        <i class="fab fa-github"></i>
-                                        <span>Github<br><small>mfaridsyam</small></span>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>-->
-                    </div>
-
-                    <div class="contact-comments-section">
-                        <div class="comments-header">
-                            <i class="fas fa-comments"></i>
-                            <h3>Comments (<span id="commentCount">1</span>)</h3>
-                        </div>
-
-                        <form id="commentForm" class="comment-form">
-                            <div class="form-group">
-                                <label for="commentName">Name <span class="required">*</span></label>
-                                <input type="text" id="commentName" placeholder="Enter your name" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="commentMessage">Message <span class="required">*</span></label>
-                                <textarea id="commentMessage" rows="4" placeholder="Write your message here..." required></textarea>
-                            </div>
-
-                            <div class="hp-field" aria-hidden="true">
-                                <input type="text" name="hp_comment" id="hp_comment" tabindex="-1" autocomplete="off">
-                            </div>
-                            
-                            <button type="submit" class="btn-submit">
-                                <i class="fas fa-paper-plane"></i> Post Comment
-                            </button>
-                        </form>
-
-                        <div class="comments-list-wrapper">
-                            <div class="comment-item pinned-comment-item">
-                                <div class="comment-avatar">
-                                    <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1772046329/adaadmincoy_phcwpi.jpg" alt="Farid">
-                                </div>
-                                <div class="comment-content">
-                                    <div class="comment-header">
-                                        <span class="comment-name">Farid</span>
-                                        <span class="admin-badge">Admin</span>
-                                        <span class="pinned-badge-inline">
-                                            <i class="fas fa-thumbtack"></i> 
-                                            <span class="pinned-text">PINNED COMMENT</span>
-                                        </span>
-                                        <span class="comment-date">Aug 6, 2024</span>
-                                    </div>
-                                    <p class="comment-text">Thanks for visiting! Contact me if you need anything</p>
-                                </div>
-                            </div>
-
-                            <div id="commentsList" class="comments-list"></div>
-                        </div>
                     </div>
                 </div>
             </div>
