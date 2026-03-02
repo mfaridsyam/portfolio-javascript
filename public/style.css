@@ -149,7 +149,6 @@ body {
     transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Warna teks terminal — menggunakan prefix tl- agar tidak konflik */
 .terminal-line .tl-prompt  { color: #289DF2; }
 .terminal-line .tl-cmd     { color: #ffffff; }
 .terminal-line .tl-output  { color: rgba(255, 255, 255, 0.45); font-size: 0.82rem; }
@@ -1803,10 +1802,6 @@ body.dark-mode .techstack-icon .icon-dark { opacity: 1; }
 
 .techstack-card:hover .techstack-category { opacity: 1; max-height: 50px; }
 
-/* =============================================
-   CONTACT SECTION - FORM CENTERED
-   ============================================= */
-
 .contact {
     padding: 8rem 8%;
     background: var(--bg-primary);
@@ -1822,7 +1817,6 @@ body.dark-mode .techstack-icon .icon-dark { opacity: 1; }
     margin-bottom: 4rem;
 }
 
-/* KEY FIX: flex + center instead of grid */
 .contact-content {
     display: flex;
     justify-content: center;
@@ -1925,10 +1919,6 @@ body.dark-mode .techstack-icon .icon-dark { opacity: 1; }
     transform: translateY(-2px);
     box-shadow: 0 4px 12px var(--shadow-color);
 }
-
-/* =============================================
-   NOTIFICATION
-   ============================================= */
 
 .notification-popup {
     position: fixed;
@@ -2056,10 +2046,6 @@ body.dark-mode .techstack-icon .icon-dark { opacity: 1; }
     transform: rotate(90deg);
 }
 
-/* =============================================
-   SOCIAL (kept for reference, currently disabled in HTML)
-   ============================================= */
-
 .contact-social {
     margin-top: 2.5rem;
     padding-top: 2rem;
@@ -2113,10 +2099,6 @@ body.dark-mode .techstack-icon .icon-dark { opacity: 1; }
     cursor: not-allowed;
     filter: grayscale(100%);
 }
-
-/* =============================================
-   COMMENTS (kept for reference, currently disabled in HTML)
-   ============================================= */
 
 .contact-comments-section {
     background: var(--bg-card);
@@ -2308,10 +2290,6 @@ body.dark-mode .techstack-icon .icon-dark { opacity: 1; }
     font-size: 0.9rem;
 }
 
-/* =============================================
-   FOOTER
-   ============================================= */
-
 footer {
     padding: 1.5rem 8%;
     border-top: 1px solid var(--border-color);
@@ -2323,10 +2301,6 @@ body.dark-mode footer { background: rgba(0, 0, 0, 0.5); }
 .footer-bottom { text-align: center; }
 .footer-bottom p { color: #0F3775; font-size: 0.9rem; }
 body.dark-mode .footer-bottom p { color: white; }
-
-/* =============================================
-   MUSIC PLAYER
-   ============================================= */
 
 .music-player-simple {
     position: fixed;
@@ -2389,18 +2363,9 @@ body.dark-mode .footer-bottom p { color: white; }
 }
 
 .music-status-simple { font-size: 0.65rem; color: var(--text-muted); }
-
-/* =============================================
-   ANIMATIONS
-   ============================================= */
-
 .animate-section { opacity: 0; transition: opacity 0.8s ease; }
 .animate-section.animate-in { opacity: 1; }
 #home { opacity: 1 !important; transform: translateY(0) !important; }
-
-/* =============================================
-   RESPONSIVE
-   ============================================= */
 
 @media (max-width: 1200px) {
     .about-content { grid-template-columns: 300px 1fr; gap: 3rem; }

@@ -12,9 +12,6 @@ document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
 });
 
-// =============================================
-// FIX: DYNAMIC VIEWPORT HEIGHT
-// =============================================
 function setVH() {
     const vh = window.visualViewport
         ? window.visualViewport.height * 0.01
@@ -42,8 +39,6 @@ if (window.visualViewport) {
         }
     }, { passive: true });
 }
-
-// =============================================
 
 emailjs.init("UrpG9fqigxq0B2m7k");
 
@@ -100,9 +95,6 @@ window.addEventListener('DOMContentLoaded', () => {
     showLoadingScreen();
 });
 
-// =============================================
-// TERMINAL LOADING SCREEN
-// =============================================
 function showLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
     const mainContent   = document.getElementById('portfolioPage');
@@ -213,9 +205,6 @@ async function initializeAnimations() {
     });
 }
 
-// =============================================
-// COMMENT HELPERS
-// =============================================
 function saveCommentTime() {
     try { localStorage.setItem('lastCommentTime', Date.now().toString()); } catch(e) {}
 }
@@ -246,9 +235,6 @@ function getTimeUntilNextComment() {
     } catch(e) { return null; }
 }
 
-// =============================================
-// MUSIC PLAYER
-// =============================================
 const audio             = document.getElementById("audioPlayer");
 const musicTitleSimple  = document.getElementById("musicTitleSimple");
 const musicStatusSimple = document.getElementById("musicStatusSimple");
@@ -343,9 +329,6 @@ function handleMusicPlayerVisibility() {
 window.addEventListener('scroll', handleMusicPlayerVisibility, { passive: true });
 window.addEventListener('resize', handleMusicPlayerVisibility, { passive: true });
 
-// =============================================
-// NAV
-// =============================================
 function toggleBurgerMenu() {
     const mobileMenu = document.getElementById('mobileMenu');
     const burgerMenu = document.querySelector('.burger-menu');
@@ -384,9 +367,6 @@ function scrollToSection(id) {
     if (section) section.scrollIntoView({ behavior: "smooth" });
 }
 
-// =============================================
-// TABS
-// =============================================
 function switchTab(tabName) {
     const projectsContent     = document.getElementById('projectsContent');
     const certificatesContent = document.getElementById('certificatesContent');
@@ -403,9 +383,6 @@ function switchTab(tabName) {
     else if (tabName === 'techstack')    { techstackContent.classList.add('active');    tabBtns[2].classList.add('active'); }
 }
 
-// =============================================
-// TECH STACK
-// =============================================
 const techStack = [
     { name: "HTML",            category: "Frontend Markup",     iconLight: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772046290/htmld_qt0sag.png",    iconDark: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772046288/html_jtph2y.png" },
     { name: "CSS",             category: "Styling & Layout",    iconLight: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772053363/cssd_xdk48f.png",     iconDark: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772053360/css_cijcft.png" },
@@ -439,9 +416,6 @@ if (techstackDisplay) {
     });
 }
 
-// =============================================
-// CERTIFICATES
-// =============================================
 const certificates = [
     { title: "Figma for UI/UX Design",  issuer: "MySkill - Skill Specialization",       date: "2026", images: ["https://res.cloudinary.com/dnacoymkh/image/upload/v1772046386/figmaforui-uxdesign_egeno8.jpg"] },
     { title: "Fundamental UI Design",   issuer: "Coding Studio",                        date: "2025", images: ["https://res.cloudinary.com/dnacoymkh/image/upload/v1772046389/fundamental-ui_apkyoz.jpg"] },
@@ -542,9 +516,6 @@ function closeCertificateModal() {
     currentImageIndex = 0;
 }
 
-// =============================================
-// PROJECTS
-// =============================================
 const projects = [
     {
         title: "Personal Portfolio",
@@ -693,7 +664,6 @@ function closeProjectModal() {
     document.body.style.overflow = '';
 }
 
-// FIX: Show Less tidak paksa scroll ke atas
 function toggleShowAllProjects() {
     showAllProjects = !showAllProjects;
     renderProjects();
@@ -710,7 +680,6 @@ function toggleShowAllProjects() {
     }
 }
 
-// FIX: Stat card — tab dulu, scroll kemudian (tanpa delay)
 function scrollToPortfolioSection(section) {
     const portfolioSection = document.getElementById('portfolio');
     if (!portfolioSection) return;
@@ -749,9 +718,6 @@ function animateProjects() {
 
 window.addEventListener('resize', () => { if (!showAllProjects) renderProjects(); }, { passive: true });
 
-// =============================================
-// CONTACT FORM
-// =============================================
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -800,9 +766,6 @@ function closeNotification() {
     document.body.style.overflow = '';
 }
 
-// =============================================
-// COMMENTS (Firebase)
-// =============================================
 const commentForm  = document.getElementById('commentForm');
 const commentsList = document.getElementById('commentsList');
 const commentCount = document.getElementById('commentCount');
@@ -860,9 +823,6 @@ function loadComments() {
     );
 }
 
-// =============================================
-// INTERSECTION OBSERVER & ANIMATIONS
-// =============================================
 const observerOptions = { threshold: 0.05, rootMargin: '0px 0px -100px 0px' };
 
 const observer = new IntersectionObserver((entries) => {
