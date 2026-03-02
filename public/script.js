@@ -99,73 +99,12 @@ function showLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
     const mainContent   = document.getElementById('portfolioPage');
     const nav           = document.querySelector('nav');
-    const cursor        = document.getElementById('terminalCursor');
 
     loadingScreen.style.display = 'flex';
     mainContent.style.display   = 'none';
     nav.style.display           = 'none';
 
-    const lines = [
-        {
-            id: 'tl-1',
-            html: '<span class="tl-prompt">farid@portfolio</span><span class="tl-dim">:</span><span class="tl-accent">~</span><span class="tl-dim">$</span> <span class="tl-cmd">./launch portfolio.sh</span>',
-            delay: 300
-        },
-        {
-            id: 'tl-2',
-            html: '<span class="tl-output">  Initializing environment...</span>',
-            delay: 900
-        },
-        {
-            id: 'tl-3',
-            html: '<span class="tl-success">  ✓ </span><span class="tl-output">UI/UX modules loaded</span>',
-            delay: 1300
-        },
-        {
-            id: 'tl-4',
-            html: '<span class="tl-success">  ✓ </span><span class="tl-output">Frontend engine ready</span>',
-            delay: 1650
-        },
-        {
-            id: 'tl-5',
-            html: '<span class="tl-success">  ✓ </span><span class="tl-output">Projects compiled (9 found)</span>',
-            delay: 1950
-        },
-        {
-            id: 'tl-6',
-            html: '<span class="tl-warning">  ⚡ </span><span class="tl-output">Connecting to faridsyam.web.app...</span>',
-            delay: 2250
-        },
-        {
-            id: 'tl-7',
-            html: '<span class="tl-success">  ✓ </span><span class="tl-output">Connection established</span>',
-            delay: 2700
-        },
-        {
-            id: 'tl-8',
-            html: '<span class="tl-prompt">farid@portfolio</span><span class="tl-dim">:</span><span class="tl-accent">~</span><span class="tl-dim">$</span> <span class="tl-accent">Welcome... 👋</span>',
-            delay: 3100
-        },
-    ];
-
-    lines.forEach(line => {
-        setTimeout(() => {
-            const el = document.getElementById(line.id);
-            if (!el) return;
-            el.innerHTML = line.html;
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    el.style.opacity   = '1';
-                    el.style.transform = 'translateX(0)';
-                });
-            });
-        }, line.delay);
-    });
-
-    const totalDuration = lines[lines.length - 1].delay + 900;
-
     setTimeout(() => {
-        if (cursor) cursor.style.display = 'none';
         loadingScreen.style.opacity = '0';
         setTimeout(() => {
             loadingScreen.style.display = 'none';
@@ -174,7 +113,7 @@ function showLoadingScreen() {
             initializeAnimations();
             handleMusicPlayerVisibility();
         }, 600);
-    }, totalDuration);
+    }, 3200);
 }
 
 async function initializeAnimations() {

@@ -72,8 +72,7 @@ body {
 
 .loading-screen {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100%;
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
@@ -83,92 +82,107 @@ body {
     justify-content: center;
     z-index: 10000;
     transition: opacity 0.6s ease;
-    padding: 1rem;
 }
 
-.terminal-window {
-    width: 100%;
-    max-width: 580px;
-    background: #111111;
-    border-radius: 12px;
-    border: 1px solid rgba(40, 157, 242, 0.25);
-    box-shadow:
-        0 0 0 1px rgba(40, 157, 242, 0.1),
-        0 25px 80px rgba(0, 0, 0, 0.8),
-        0 0 60px rgba(40, 157, 242, 0.08);
-    overflow: hidden;
-    animation: terminalAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes terminalAppear {
-    from { opacity: 0; transform: translateY(20px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.terminal-header {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 0.85rem 1.2rem;
-    background: #1a1a1a;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.terminal-dots { display: flex; gap: 0.45rem; }
-
-.dot { width: 12px; height: 12px; border-radius: 50%; }
-.dot-red    { background: #ff5f57; }
-.dot-yellow { background: #febc2e; }
-.dot-green  { background: #28c840; }
-
-.terminal-title {
-    flex: 1;
+.glitch-container {
     text-align: center;
-    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.35);
-    letter-spacing: 0.5px;
 }
 
-.terminal-spacer { width: 52px; }
-
-.terminal-body {
-    padding: 1.5rem 1.8rem 1.8rem;
-    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-    font-size: 0.88rem;
-    line-height: 1.9;
-    min-height: 260px;
+.glitch-title {
+    font-family: "PolySans Bulky", sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: white;
     position: relative;
-}
-
-.terminal-line {
-    color: rgba(255, 255, 255, 0.85);
-    min-height: 1.7em;
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.terminal-line .tl-prompt  { color: #289DF2; }
-.terminal-line .tl-cmd     { color: #ffffff; }
-.terminal-line .tl-output  { color: rgba(255, 255, 255, 0.45); font-size: 0.82rem; }
-.terminal-line .tl-success { color: #28c840; }
-.terminal-line .tl-warning { color: #febc2e; }
-.terminal-line .tl-accent  { color: #289DF2; font-weight: 700; }
-.terminal-line .tl-dim     { color: rgba(255, 255, 255, 0.25); }
-
-.terminal-cursor {
     display: inline-block;
-    color: #289DF2;
-    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-    font-size: 0.88rem;
-    animation: blinkBlock 0.9s step-end infinite;
-    line-height: 1.9;
+    letter-spacing: -2px;
+    animation: glitchAppear 0.5s ease forwards;
 }
 
-@keyframes blinkBlock {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
+@keyframes glitchAppear {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.glitch-title::before,
+.glitch-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+
+.glitch-title::before {
+    color: #289DF2;
+    animation: glitch1 3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+
+.glitch-title::after {
+    color: #ff3366;
+    animation: glitch2 3s infinite;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch1 {
+    0%, 88%, 100% { transform: translate(0); opacity: 0; }
+    89% { transform: translate(-4px, 1px); opacity: 1; }
+    90% { transform: translate(4px, -1px); opacity: 1; }
+    91% { transform: translate(0); opacity: 0; }
+    93% { transform: translate(-2px); opacity: 1; }
+    94% { transform: translate(0); opacity: 0; }
+}
+
+@keyframes glitch2 {
+    0%, 88%, 100% { transform: translate(0); opacity: 0; }
+    89% { transform: translate(4px, -1px); opacity: 1; }
+    90% { transform: translate(-4px, 1px); opacity: 1; }
+    91% { transform: translate(0); opacity: 0; }
+    93% { transform: translate(2px); opacity: 1; }
+    94% { transform: translate(0); opacity: 0; }
+}
+
+.glitch-sub {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #289DF2;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.6s forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.glitch-bar-wrap {
+    width: 280px;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    margin: 1.8rem auto 0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.glitch-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #289DF2, #ff3366);
+    animation: fillBar 2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+    border-radius: 2px;
+    box-shadow: 0 0 8px #289DF2;
+}
+
+@keyframes fillBar {
+    to { width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .glitch-title { font-size: 3.5rem; }
+    .glitch-sub   { font-size: 0.75rem; letter-spacing: 3px; }
+    .glitch-bar-wrap { width: 200px; }
 }
 
 @media (max-width: 480px) {
