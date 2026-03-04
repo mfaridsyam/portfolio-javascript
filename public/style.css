@@ -2617,3 +2617,78 @@ body.dark-mode .footer-bottom p { color: white; }
     .music-player-simple { max-width: 160px; padding: 0.4rem 0.6rem; }
     .music-title-simple { font-size: 0.68rem; }
 }
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+    nav {
+        padding: 1rem 5%;
+    }
+
+    .hero {
+        padding: 0 5%;
+        gap: 1.5rem;
+    }
+
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero-content {
+        max-width: 560px;
+    }
+
+    .hero-image {
+        max-width: 420px;
+        padding-left: 5%;
+    }
+
+    .profile-img-wrapper {
+        max-width: 380px;
+        height: 300px;
+    }
+
+    .about {
+        padding: 6rem 5%;
+    }
+
+    .about-content {
+        grid-template-columns: 280px 1fr;
+        gap: 2.5rem;
+    }
+
+    .about-img {
+        max-width: 280px;
+    }
+
+    .about-greeting {
+        font-size: 2rem;
+    }
+
+    .about-name {
+        font-size: 2rem;
+    }
+
+    .about-stats-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    .portfolio-showcase {
+        padding: 6rem 5%;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .techstack-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact {
+        padding: 6rem 5%;
+    }
+
+    .project-modal .modal-content {
+        grid-template-columns: 320px 1fr;
+    }
+}
