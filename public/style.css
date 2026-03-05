@@ -179,23 +179,6 @@ body {
     to { width: 100%; }
 }
 
-@media (max-width: 480px) {
-    .glitch-title { font-size: 3.5rem; }
-    .glitch-sub   { font-size: 0.75rem; letter-spacing: 3px; }
-    .glitch-bar-wrap { width: 200px; }
-}
-
-@media (max-width: 480px) {
-    .terminal-window { border-radius: 8px; }
-    .terminal-body {
-        padding: 1.2rem 1.2rem 1.5rem;
-        font-size: 0.8rem;
-        min-height: 220px;
-    }
-    .terminal-title { font-size: 0.65rem; }
-    .dot { width: 10px; height: 10px; }
-}
-
 @keyframes blink {
     0%, 50% { opacity: 1; }
     51%, 100% { opacity: 0; }
@@ -1837,13 +1820,77 @@ body.dark-mode .techstack-icon .icon-dark { opacity: 1; }
     align-items: flex-start;
 }
 
+.contact-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.contact-lottie-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+#lottie-contact {
+    width: 100%;
+    max-width: 300px;
+    height: 260px;
+}
+
+.contact-info-text h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    font-family: "PolySans Bulky", sans-serif;
+}
+
+.contact-info-text p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+
+.contact-info-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.contact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: rgba(var(--accent-color-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-color-rgb), 0.3);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.contact-badge:hover {
+    background: rgba(var(--accent-color-rgb), 0.2);
+    transform: translateY(-2px);
+}
+
 .contact-form-section {
     background: var(--bg-card);
     padding: 2.5rem;
     border-radius: 20px;
     border: 1px solid var(--border-color);
     width: 100%;
-    max-width: 640px;
 }
 
 .form-title {
@@ -2420,6 +2467,79 @@ body.dark-mode .footer-bottom p { color: white; }
     .section-subtitle { text-align: justify; }
     .project-modal { padding: 1.5rem; }
     .project-modal .modal-content { grid-template-columns: 350px 1fr; gap: 0; }
+    .hero {
+        padding-top: 100px;
+        padding-bottom: 3rem;
+        min-height: auto;
+        gap: 3rem;
+    }
+    .hero-image {
+        order: 1;
+        width: 100%;
+        max-width: 100%;
+        padding-left: 0;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    .profile-img-wrapper {
+        width: 320px;
+        height: 320px;
+        max-width: 320px;
+    }
+    .hero-content {
+        order: 2;
+        max-width: 100%;
+        text-align: left;
+    }
+    .about {
+        padding: 5rem 8%;
+        min-height: auto;
+    }
+    .about-content {
+        grid-template-columns: 200px 1fr;
+        gap: 2.5rem;
+        text-align: left;
+    }
+    .about-image-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+    .about-img {
+        max-width: 200px;
+    }
+    .about-text-wrapper {
+        align-items: flex-start;
+    }
+    .about-greeting {
+        justify-content: flex-start;
+    }
+    .about-stats-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+    .stat-card {
+        padding: 1.2rem;
+    }
+    .stat-number {
+        font-size: 2rem;
+    }
+    .contact-header {
+        text-align: center;
+    }
+    .contact-header .section-title {
+        text-align: center;
+    }
+    .contact-header .section-subtitle {
+        text-align: center;
+    }
+    .contact-two-col {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 600px;
+    }
+    .contact-lottie-side { order: -1; }
+    #lottie-contact { max-width: 240px; height: 220px; }
+    .contact-form-section { width: 100%; max-width: 100%; }
 }
 
 @media (max-width: 768px) {
@@ -2475,8 +2595,6 @@ body.dark-mode .footer-bottom p { color: white; }
     .tab-navigation { margin-bottom: 1.5rem; }
     .tab-btn { font-size: 0.9rem; padding: 1rem; }
     .contact { padding: 5rem 6%; }
-    .contact-content { display: flex; justify-content: center; }
-    .contact-form-section { max-width: 100%; }
     .social-buttons-row { grid-template-columns: 1fr; }
     .pinned-badge-inline { display: none; }
     .section-subtitle { text-align: justify; }
@@ -2539,6 +2657,14 @@ body.dark-mode .footer-bottom p { color: white; }
     body.dark-mode .project-modal-main { background: var(--bg-card); }
     .project-modal-images { gap: 1.5rem; padding: 0 1.5rem 2rem; background: transparent; }
     .project-modal-images img { border-radius: 12px; }
+    .contact-two-col {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 100%;
+    }
+    .contact-lottie-side { order: -1; }
+    #lottie-contact { max-width: 200px; height: 180px; }
+    .contact-form-section { width: 100%; }
 }
 
 @media (min-width: 769px) {
@@ -2548,6 +2674,9 @@ body.dark-mode .footer-bottom p { color: white; }
 }
 
 @media (max-width: 480px) {
+    .glitch-title { font-size: 3.5rem; }
+    .glitch-sub { font-size: 0.75rem; letter-spacing: 3px; }
+    .glitch-bar-wrap { width: 200px; }
     .hero-status { font-size: 0.8rem; }
     .hero-status.closed { color: #ff4d4d; border: 1.5px solid #ff4d4d; background: rgba(255, 77, 77, 0.08); }
     .hero-content { margin-top: -1rem; margin-bottom: 0rem; }
@@ -2556,12 +2685,6 @@ body.dark-mode .footer-bottom p { color: white; }
     .section-subtitlee { text-align: center; font-size: 0.9rem; }
     .about-image-wrapper { align-items: center; }
     .hero h1 { font-size: 2rem; }
-    .loading-icons { gap: 0.9rem; margin-bottom: 1rem; }
-    .loading-icon { height: 2.5rem; width: 2.5rem; }
-    .loading-title { font-size: 2.5rem; }
-    .loading-icon i { font-size: 1rem; }
-    .loading-url { font-size: 0.8rem; }
-    .loading-url i { font-size: 0.7rem; }
     .about-name { font-size: 1.9rem; }
     .stat-card { padding: 5% 7% 5% 7%; gap: 1rem; }
     .stat-icon { width: 3rem; height: 3rem; }
@@ -2592,6 +2715,12 @@ body.dark-mode .footer-bottom p { color: white; }
     .project-modal-section { margin-bottom: 1.5rem; padding-bottom: 1.5rem; }
     .project-modal-images { gap: 1.5rem; padding: 1rem; }
     .project-modal-images img { border-radius: 8px; }
+    .contact-two-col {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        max-width: 100%;
+    }
+    #lottie-contact { max-width: 230px; height: 210px; }
 }
 
 @media (max-width: 400px) {
@@ -2619,76 +2748,21 @@ body.dark-mode .footer-bottom p { color: white; }
 }
 
 @media (min-width: 1025px) and (max-width: 1366px) {
-    nav {
-        padding: 1rem 5%;
-    }
-
-    .hero {
-        padding: 0 5%;
-        gap: 1.5rem;
-    }
-
-    .hero h1 {
-        font-size: 2.8rem;
-    }
-
-    .hero-content {
-        max-width: 560px;
-    }
-
-    .hero-image {
-        max-width: 420px;
-        padding-left: 5%;
-    }
-
-    .profile-img-wrapper {
-        max-width: 380px;
-        height: 300px;
-    }
-
-    .about {
-        padding: 6rem 5%;
-    }
-
-    .about-content {
-        grid-template-columns: 280px 1fr;
-        gap: 2.5rem;
-    }
-
-    .about-img {
-        max-width: 280px;
-    }
-
-    .about-greeting {
-        font-size: 2rem;
-    }
-
-    .about-name {
-        font-size: 2rem;
-    }
-
-    .about-stats-wrapper {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-    }
-
-    .portfolio-showcase {
-        padding: 6rem 5%;
-    }
-
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .techstack-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .contact {
-        padding: 6rem 5%;
-    }
-
-    .project-modal .modal-content {
-        grid-template-columns: 320px 1fr;
-    }
+    nav { padding: 1rem 5%; }
+    .hero { padding: 0 5%; gap: 1.5rem; }
+    .hero h1 { font-size: 2.8rem; }
+    .hero-content { max-width: 560px; }
+    .hero-image { max-width: 420px; padding-left: 5%; }
+    .profile-img-wrapper { max-width: 380px; height: 300px; }
+    .about { padding: 6rem 5%; }
+    .about-content { grid-template-columns: 280px 1fr; gap: 2.5rem; }
+    .about-img { max-width: 280px; }
+    .about-greeting { font-size: 2rem; }
+    .about-name { font-size: 2rem; }
+    .about-stats-wrapper { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .portfolio-showcase { padding: 6rem 5%; }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    .techstack-grid { grid-template-columns: repeat(3, 1fr); }
+    .contact { padding: 6rem 5%; }
+    .project-modal .modal-content { grid-template-columns: 320px 1fr; }
 }

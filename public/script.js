@@ -131,6 +131,16 @@ async function initializeAnimations() {
         });
     }
 
+    if (typeof lottie !== 'undefined') {
+    lottie.loadAnimation({
+        container: document.getElementById('lottie-contact'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://res.cloudinary.com/dnacoymkh/raw/upload/v1772692529/email_adxthp.json'
+    });
+}
+
     setTimeout(() => { heroContent.classList.add('animate-in-left'); }, 200);
     setTimeout(() => { heroImage.classList.add('animate-in-right'); }, 400);
     setTimeout(() => { scrollIndicator.classList.add('animate-in-bottom'); }, 600);
