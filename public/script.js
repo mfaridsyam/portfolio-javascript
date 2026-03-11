@@ -491,6 +491,22 @@ const projects = [
         images: ["https://res.cloudinary.com/dnacoymkh/image/upload/v1772046221/comingsoon_ol3ycq.png"]
     },
     {
+        title: "IGSave",
+        desc:  "A web tool to download Instagram Reels, feed posts, carousel photos, and other people's Stories — all without watermark, straight from the browser.",
+        image: "https://res.cloudinary.com/dnacoymkh/image/upload/v1773052015/igsave_fr1sty.png",
+        badges: ["UI/UX Design", "Web Development"],
+        role:   "UI/UX Designer & Web Developer",
+        images: ["https://res.cloudinary.com/dnacoymkh/image/upload/v1772046221/comingsoon_ol3ycq.png"]
+    },
+    {
+        title: "TikSave",
+        desc:  "A web tool to download TikTok videos without watermark — fast, free, and works directly in the browser with no app required.",
+        image: "https://res.cloudinary.com/dnacoymkh/image/upload/v1773052015/tiksave_mu47xv.png",
+        badges: ["UI/UX Design", "Web Development"],
+        role:   "UI/UX Designer & Web Developer",
+        images: ["https://res.cloudinary.com/dnacoymkh/image/upload/v1772046221/comingsoon_ol3ycq.png"]
+    },
+    {
         title: "Oura Store",
         desc:  "A specialized e-commerce web design for game currency top-ups, featuring a fast and secure flow for purchasing in-game diamonds.",
         image: "https://res.cloudinary.com/dnacoymkh/image/upload/v1772045914/oura_bfb9fg.png",
