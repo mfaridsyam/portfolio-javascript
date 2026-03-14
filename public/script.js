@@ -112,6 +112,7 @@ function showLoadingScreen() {
             nav.style.display           = 'flex';
             initializeAnimations();
             handleMusicPlayerVisibility();
+            setTimeout(() => showNewSitePopup(), 600);
         }, 600);
     }, 3200);
 }
@@ -840,3 +841,20 @@ function animateAboutText() {
 }
 
 renderProjects();
+function showNewSitePopup() {
+    const popup = document.getElementById('newSitePopup');
+    if (!popup) return;
+    popup.classList.add('nsp-visible');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeNewSitePopup() {
+    const popup = document.getElementById('newSitePopup');
+    if (!popup) return;
+    popup.classList.remove('nsp-visible');
+    popup.classList.add('nsp-hiding');
+    setTimeout(() => {
+        popup.style.display = 'none';
+        document.body.style.overflow = '';
+    }, 400);
+}

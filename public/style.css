@@ -2766,3 +2766,103 @@ body.dark-mode .footer-bottom p { color: white; }
     .contact { padding: 6rem 5%; }
     .project-modal .modal-content { grid-template-columns: 320px 1fr; }
 }
+
+.nsp-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+.nsp-overlay.nsp-visible {
+    display: flex;
+    opacity: 1;
+}
+.nsp-overlay.nsp-hiding {
+    opacity: 0;
+}
+.nsp-card {
+    background: #161616;
+    border: 1px solid rgba(232,229,223,.1);
+    border-radius: 18px;
+    padding: 2.4rem 2rem 1.8rem;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 32px 64px rgba(0,0,0,.7);
+    animation: nspIn .45s cubic-bezier(.16,1,.3,1) both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+@keyframes nspIn {
+    from { opacity: 0; transform: translateY(20px) scale(.97); }
+    to   { opacity: 1; transform: none; }
+}
+.nsp-badge {
+    font-size: .48rem;
+    letter-spacing: 5px;
+    color: #289DF2;
+    border: 1px solid rgba(40,157,242,.35);
+    padding: .22rem .8rem;
+    border-radius: 20px;
+}
+.nsp-title {
+    font-family: 'PolySans Bulky', Georgia, serif;
+    font-size: clamp(1.6rem, 5vw, 2.1rem);
+    font-weight: 400;
+    color: #e8e5df;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    margin: 0;
+}
+.nsp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    background: #289DF2;
+    color: #fff;
+    text-decoration: none;
+    padding: .78rem 2rem;
+    border-radius: 8px;
+    font-size: .68rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: background .2s, transform .2s;
+    width: 100%;
+    justify-content: center;
+}
+.nsp-btn:hover {
+    background: #1a8ae0;
+    transform: translateY(-1px);
+}
+.nsp-btn i {
+    font-size: .62rem;
+    transition: transform .2s;
+}
+.nsp-btn:hover i {
+    transform: translateX(4px);
+}
+.nsp-skip {
+    background: none;
+    border: none;
+    color: rgba(232,229,223,.3);
+    font-size: .7rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color .2s;
+    padding: .2rem;
+    font-family: inherit;
+}
+.nsp-skip:hover {
+    color: rgba(232,229,223,.6);
+}
