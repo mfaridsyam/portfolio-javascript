@@ -2772,9 +2772,9 @@ body.dark-mode .footer-bottom p { color: white; }
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: rgba(0, 0, 0, 0.72);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
@@ -2789,40 +2789,44 @@ body.dark-mode .footer-bottom p { color: white; }
     opacity: 0;
 }
 .nsp-card {
-    background: #161616;
-    border: 1px solid rgba(232,229,223,.1);
-    border-radius: 18px;
-    padding: 2.4rem 2rem 1.8rem;
-    max-width: 360px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2.6rem 2.2rem 2rem;
+    max-width: 340px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 32px 64px rgba(0,0,0,.7);
+    box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
     animation: nspIn .45s cubic-bezier(.16,1,.3,1) both;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.1rem;
 }
 @keyframes nspIn {
     from { opacity: 0; transform: translateY(20px) scale(.97); }
     to   { opacity: 1; transform: none; }
 }
 .nsp-badge {
-    font-size: .48rem;
+    font-size: .46rem;
     letter-spacing: 5px;
     color: #289DF2;
-    border: 1px solid rgba(40,157,242,.35);
-    padding: .22rem .8rem;
+    border: 1px solid rgba(40,157,242,.4);
+    background: rgba(40,157,242,.08);
+    padding: .22rem .9rem;
     border-radius: 20px;
 }
 .nsp-title {
     font-family: 'PolySans Bulky', Georgia, serif;
-    font-size: clamp(1.6rem, 5vw, 2.1rem);
+    font-size: clamp(1.7rem, 5vw, 2.2rem);
     font-weight: 400;
-    color: #e8e5df;
+    color: #fff;
     letter-spacing: -.02em;
     line-height: 1.15;
     margin: 0;
+    text-shadow: 0 2px 12px rgba(0,0,0,.3);
 }
 .nsp-btn {
     display: inline-flex;
@@ -2831,19 +2835,21 @@ body.dark-mode .footer-bottom p { color: white; }
     background: #289DF2;
     color: #fff;
     text-decoration: none;
-    padding: .78rem 2rem;
+    padding: .8rem 0;
     border-radius: 8px;
-    font-size: .68rem;
+    font-size: .66rem;
     letter-spacing: 2.5px;
     text-transform: uppercase;
     font-weight: 700;
-    transition: background .2s, transform .2s;
+    transition: background .2s, transform .2s, box-shadow .2s;
     width: 100%;
     justify-content: center;
+    box-shadow: 0 4px 20px rgba(40,157,242,.35);
 }
 .nsp-btn:hover {
     background: #1a8ae0;
     transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(40,157,242,.5);
 }
 .nsp-btn i {
     font-size: .62rem;
@@ -2855,8 +2861,8 @@ body.dark-mode .footer-bottom p { color: white; }
 .nsp-skip {
     background: none;
     border: none;
-    color: rgba(232,229,223,.3);
-    font-size: .7rem;
+    color: rgba(255,255,255,.3);
+    font-size: .68rem;
     letter-spacing: 1px;
     cursor: pointer;
     transition: color .2s;
@@ -2864,5 +2870,5 @@ body.dark-mode .footer-bottom p { color: white; }
     font-family: inherit;
 }
 .nsp-skip:hover {
-    color: rgba(232,229,223,.6);
+    color: rgba(255,255,255,.6);
 }
